@@ -8,6 +8,9 @@ use App\Models\About;
 use App\Models\SupplyMaterial;
 use App\Models\JasaKonstruksi;
 use App\Models\Project;
+use App\Models\Certificate;
+use App\Models\Tiktok;
+use App\Models\SiteContent;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -15,7 +18,7 @@ class PageController extends Controller
     public function home()
     {
         $about = About::first();
-        $siteContent = \App\Models\SiteContent::firstOrCreate([]);
+        $siteContent = SiteContent::firstOrCreate([]);
         $projects = Project::latest()->take(6)->get();
 
         return view('pages.home', compact('about', 'siteContent', 'projects'));
@@ -47,19 +50,18 @@ class PageController extends Controller
 
     public function tiktok()
     {
-        $tiktoks = \App\Models\Tiktok::where('is_active', true)->orderBy('order')->latest()->get();
+        $tiktoks = Tiktok::where('is_active', true)->orderBy('order')->latest()->get();
         $about = About::first();
         return view('pages.tiktok', compact('tiktoks', 'about'));
     }
 
     public function certificates()
     {
-        $about = About::first();
-        $certificates = \App\Models\Certificate::where('is_active', true)
+        $certificates = Certificate::where('is_active', true)
             ->orderBy('order')
-            ->orderBy('id', 'desc')
             ->get();
-        return view('pages.certificates', compact('about', 'certificates'));
+
+        return view('pages.certificates', compact('certificates'));
     }
 
     public function contact()

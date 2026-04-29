@@ -21,25 +21,36 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Sub Nama Sertifikat <span class="text-danger">*</span></label>
-                        <input type="text" name="subtitle" class="form-control"
-                            value="{{ old('subtitle', $certificate->subtitle) }}" required>
+                        <label class="form-label">Nomor/ID</label>
+                        <input type="text" name="number" class="form-control"
+                            value="{{ old('number', $certificate->number) }}">
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Foto Sertifikat</label>
-                        @if($certificate->image && \Storage::disk('public')->exists($certificate->image))
-                        <div class="mb-2">
-                            <img src="{{ asset('storage/'.$certificate->image) }}" class="img-preview"
-                                style="max-height:200px">
-                            <small class="d-block text-muted mt-1">Foto saat ini (upload baru jika ingin
-                                mengganti)</small>
-                        </div>
+                        <label class="form-label">Kategori <span class="text-danger">*</span></label>
+                        <select name="category" class="form-select" required>
+                            <option value="">-- Pilih Kategori --</option>
+                            <option value="company_legalitas" {{ old('category', $certificate->category) === 'company_legalitas' ? 'selected' : '' }}>
+                                Legalitas Perusahaan
+                            </option>
+                            <option value="worker_certificate" {{ old('category', $certificate->category) === 'worker_certificate' ? 'selected' : '' }}>
+                                Sertifikat Pekerja
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">File Dokumen (PDF)</label>
+                        @if($certificate->file)
+                            <div class="mb-2">
+                                <a href="{{ asset('storage/'.$certificate->file) }}" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                    <i class="bi bi-file-pdf"></i> Lihat PDF Saat Ini
+                                </a>
+                                <small class="d-block text-muted mt-1">Upload baru jika ingin mengganti</small>
+                            </div>
                         @endif
-                        <input type="file" name="image" class="form-control image-input" data-preview="#imagePreview"
-                            accept="image/*">
-                        <small class="form-text">Format: JPG/PNG/WEBP, Max 3MB</small>
-                        <img id="imagePreview" src="" class="img-preview mt-2" style="display:none">
+                        <input type="file" name="file" class="form-control" accept=".pdf">
+                        <small class="form-text">Hanya file PDF, max 10MB</small>
                     </div>
                 </div>
             </div>
@@ -55,7 +66,6 @@
                         <label class="form-label">Urutan</label>
                         <input type="number" name="order" class="form-control"
                             value="{{ old('order', $certificate->order) }}" min="0">
-                        <small class="form-text">Semakin kecil, semakin atas</small>
                     </div>
 
                     <div class="mb-3">

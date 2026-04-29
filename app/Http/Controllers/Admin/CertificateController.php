@@ -11,7 +11,7 @@ class CertificateController extends Controller
 {
     public function index()
     {
-        $certificates = Certificate::orderBy('order')->orderBy('id', 'desc')->get();
+        $certificates = Certificate::orderBy('order')->get();
         return view('admin.certificates.index', compact('certificates'));
     }
 
@@ -22,28 +22,34 @@ class CertificateController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'subtitle' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:5120',
-            'order' => 'nullable|integer|min:0',
+        $request->merge([
+            'is_active' => $request->has('is_active'),
         ]);
 
-        // Upload gambar
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('certificates', $filename, 'public');
-            $data['image'] = $path;
-        }
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'number' => 'nullable|string|max:100',
+            'category' => 'required|in:company_legalitas,worker_certificate',
+            'file' => 'required|file|mimes:pdf|max:10240',
+            'order' => 'nullable|integer|min:0',
+            'is_active' => 'boolean',
+        ]);
 
-        $data['is_active'] = $request->has('is_active');
-        $data['order'] = $data['order'] ?? 0;
+        $data = $request->except('file');
+        $data['is_active'] = $request->boolean('is_active');
+
+        // 🟢 Tambahan untuk kolom lama yang masih NOT NULL
+        $data['subtitle'] = $request->input('subtitle', '');
+        $data['image'] = $request->input('image', '');
+
+        if ($request->hasFile('file')) {
+            $data['file'] = $request->file('file')->store('certificates', 'public');
+        }
 
         Certificate::create($data);
 
         return redirect()->route('admin.certificates.index')
-            ->with('success', 'Sertifikat berhasil ditambahkan!');
+            ->with('success', 'Sertifikat berhasil ditambahkan.');
     }
 
     public function edit(Certificate $certificate)
@@ -53,43 +59,46 @@ class CertificateController extends Controller
 
     public function update(Request $request, Certificate $certificate)
     {
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'subtitle' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
-            'order' => 'nullable|integer|min:0',
+        $request->merge([
+            'is_active' => $request->has('is_active'),
         ]);
 
-        if ($request->hasFile('image')) {
-            // Hapus file lama
-            if ($certificate->image && Storage::disk('public')->exists($certificate->image)) {
-                Storage::disk('public')->delete($certificate->image);
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'number' => 'nullable|string|max:100',
+            'category' => 'required|in:company_legalitas,worker_certificate',
+            'file' => 'nullable|file|mimes:pdf|max:10240',
+            'order' => 'nullable|integer|min:0',
+            'is_active' => 'boolean',
+        ]);
+
+        $data = $request->except('file');
+        $data['is_active'] = $request->boolean('is_active');
+
+        // 🟢 Jaga agar kolom lama tetap terisi
+        $data['subtitle'] = $request->input('subtitle', $certificate->subtitle ?? '');
+        $data['image'] = $request->input('image', $certificate->image ?? '');
+
+        if ($request->hasFile('file')) {
+            if ($certificate->file && Storage::disk('public')->exists($certificate->file)) {
+                Storage::disk('public')->delete($certificate->file);
             }
-
-            // Upload file baru
-            $file = $request->file('image');
-            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('certificates', $filename, 'public');
-            $data['image'] = $path;
+            $data['file'] = $request->file('file')->store('certificates', 'public');
         }
-
-        $data['is_active'] = $request->has('is_active');
-        $data['order'] = $data['order'] ?? 0;
 
         $certificate->update($data);
 
         return redirect()->route('admin.certificates.index')
-            ->with('success', 'Sertifikat berhasil diperbarui!');
+            ->with('success', 'Sertifikat berhasil diperbarui.');
     }
 
     public function destroy(Certificate $certificate)
     {
-        if ($certificate->image && Storage::disk('public')->exists($certificate->image)) {
-            Storage::disk('public')->delete($certificate->image);
+        if ($certificate->file && Storage::disk('public')->exists($certificate->file)) {
+            Storage::disk('public')->delete($certificate->file);
         }
         $certificate->delete();
-
         return redirect()->route('admin.certificates.index')
-            ->with('success', 'Sertifikat berhasil dihapus!');
+            ->with('success', 'Sertifikat berhasil dihapus.');
     }
 }
