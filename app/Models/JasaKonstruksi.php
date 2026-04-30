@@ -7,17 +7,12 @@ use Illuminate\Support\Str;
 
 class JasaKonstruksi extends Model
 {
-    protected $guarded = [];
+    protected $table = 'jasa_konstruksi'; // <-- tambahkan ini
 
-    protected static function booted()
-    {
-        static::creating(function ($j) {
-            $j->slug = Str::slug($j->title) . '-' . time();
-        });
-    }
+    protected $guarded = [];
 
     public function images()
     {
-        return $this->hasMany(JasaKonstruksiImage::class)->orderBy('order');
+        return $this->hasMany(JasaKonstruksiImage::class, 'jasa_konstruksi_id');
     }
 }

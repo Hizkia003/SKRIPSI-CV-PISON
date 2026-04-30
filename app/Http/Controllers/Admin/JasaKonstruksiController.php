@@ -12,8 +12,8 @@ class JasaKonstruksiController extends Controller
 {
     public function index()
     {
-        $jasas = JasaKonstruksi::with('images')->orderBy('order')->paginate(10);
-        return view('admin.jasa-konstruksi.index', compact('jasas'));
+        $jasa = JasaKonstruksi::with('images')->orderBy('order')->paginate(10);
+        return view('admin.jasa-konstruksi.index', compact('jasa'));
     }
 
     public function create()

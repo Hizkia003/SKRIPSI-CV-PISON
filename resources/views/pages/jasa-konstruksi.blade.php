@@ -22,7 +22,7 @@
             <p class="section-desc">Layanan konstruksi terpadu dengan tenaga ahli berpengalaman dan hasil berkualitas tinggi</p>
         </div>
 
-        @forelse($jasas as $i => $j)
+        @forelse($jasa as $i => $j)
         <div class="jk-section" data-aos="fade-up" data-aos-delay="{{ $i * 80 }}">
             <div class="jk-layout">
                 {{-- Kiri: Nama Jasa --}}

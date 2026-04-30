@@ -5,6 +5,9 @@ use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AboutController;
+use App\Http\Controllers\Admin\VisionController;
+use App\Http\Controllers\Admin\MissionController;
+use App\Http\Controllers\Admin\AdvantageController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\TiktokController;
 use App\Http\Controllers\Admin\ContactController;
@@ -56,6 +59,23 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     // About
     Route::get('about', [AboutController::class, 'edit'])->name('about.edit');
     Route::put('about', [AboutController::class, 'update'])->name('about.update');
+    // Visi
+    Route::get('visions/data', [VisionController::class, 'data'])->name('visions.data');
+    Route::post('visions', [VisionController::class, 'store'])->name('visions.store');
+    Route::put('visions/{vision}', [VisionController::class, 'update'])->name('visions.update');
+    Route::delete('visions/{vision}', [VisionController::class, 'destroy'])->name('visions.destroy');
+
+    // Misi
+    Route::get('missions/data', [MissionController::class, 'data'])->name('missions.data');
+    Route::post('missions', [MissionController::class, 'store'])->name('missions.store');
+    Route::put('missions/{mission}', [MissionController::class, 'update'])->name('missions.update');
+    Route::delete('missions/{mission}', [MissionController::class, 'destroy'])->name('missions.destroy');
+
+    // Keunggulan
+    Route::get('advantages/data', [AdvantageController::class, 'data'])->name('advantages.data');
+    Route::post('advantages', [AdvantageController::class, 'store'])->name('advantages.store');
+    Route::put('advantages/{advantage}', [AdvantageController::class, 'update'])->name('advantages.update');
+    Route::delete('advantages/{advantage}', [AdvantageController::class, 'destroy'])->name('advantages.destroy');
 
     // Supply Material
     Route::resource('supply-materials', SupplyMaterialController::class)->except(['show']);

@@ -21,7 +21,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($jasas as $j)
+                    @foreach($jasa as $j)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td><strong>{{ $j->title }}</strong></td>
