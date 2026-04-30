@@ -54,8 +54,8 @@ class PageController extends Controller
 
     public function jasaKonstruksi()
     {
-        $jasas = JasaKonstruksi::with('images')->where('is_active', true)->orderBy('order')->get();
-        return view('pages.jasa-konstruksi', compact('jasas'));
+        $jasa = JasaKonstruksi::with('images')->where('is_active', true)->orderBy('order')->get();
+        return view('pages.jasa-konstruksi', compact('jasa'));
     }
 
     public function projects()

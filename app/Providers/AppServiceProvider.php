@@ -23,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('siteContent', \App\Models\SiteContent::first());
             }
 
+            $contactInfo = \App\Models\ContactInfo::first();
+            $view->with('contactInfo', $contactInfo);
+
             // Footer Setting
             if (Schema::hasTable('footer_settings')) {
                 $view->with('footer', \App\Models\FooterSetting::first());

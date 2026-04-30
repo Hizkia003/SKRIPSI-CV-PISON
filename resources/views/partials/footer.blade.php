@@ -51,31 +51,31 @@
             <div class="col-lg-3 col-md-6">
                 <h6 class="footer-title">Kontak Kami</h6>
                 <ul class="footer-contact">
-                    @if(!empty($footer->address))
+                    @if(!empty($contactInfo->address))
                     <li>
                         <i class="bi bi-geo-alt-fill"></i>
-                        <span>{{ $footer->address }}</span>
+                        <span>{{ $contactInfo->address }}</span>
                     </li>
                     @endif
 
-                    @if(!empty($footer->whatsapp))
+                    @if(!empty($contactInfo->whatsapp))
                     <li>
                         <i class="bi bi-whatsapp"></i>
-                        <a href="https://wa.me/{{ $footer->whatsapp_full }}" target="_blank">{{ $footer->whatsapp_display }}</a>
+                        <a href="https://wa.me/{{ $contactInfo->whatsapp_full }}" target="_blank">{{ $contactInfo->whatsapp_display }}</a>
                     </li>
                     @endif
 
-                    @if(!empty($footer->email))
+                    @if(!empty($contactInfo->email))
                     <li>
                         <i class="bi bi-envelope-fill"></i>
-                        <a href="mailto:{{ $footer->email }}">{{ $footer->email }}</a>
+                        <a href="mailto:{{ $contactInfo->email }}">{{ $contactInfo->email }}</a>
                     </li>
                     @endif
 
-                    @if(!empty($footer->working_hours))
+                    @if(!empty($contactInfo->working_hours))
                     <li>
                         <i class="bi bi-clock-fill"></i>
-                        <span>{{ $footer->working_hours }}</span>
+                        <span>{{ $contactInfo->working_hours }}</span>
                     </li>
                     @endif
                 </ul>

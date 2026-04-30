@@ -23,7 +23,7 @@
                 <div class="contact-info-card">
                     <div class="contact-icon"><i class="bi bi-geo-alt-fill"></i></div>
                     <h5>Alamat Kantor</h5>
-                    <p>{{ $footer->address ?? 'Jl. Industri Raya No. 123, Jakarta Timur 13920' }}</p>
+                    <p>{{ $contactInfo->address ?? 'Jl. Industri Raya No. 123, Jakarta Timur 13920' }}</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
@@ -31,9 +31,9 @@
                     <div class="contact-icon"><i class="bi bi-whatsapp"></i></div>
                     <h5>WhatsApp</h5>
                     <p>
-                        @if(!empty($footer->whatsapp))
-                        <a href="https://wa.me/{{ $footer->whatsapp_full }}" target="_blank" class="text-decoration-none">
-                            {{ $footer->whatsapp_display }}
+                        @if(!empty($contactInfo->whatsapp))
+                        <a href="https://wa.me/{{ $contactInfo->whatsapp_full }}" target="_blank" class="text-decoration-none">
+                            {{ $contactInfo->whatsapp_display }}
                         </a>
                         @else
                         +62 812-3456-7890
@@ -46,8 +46,8 @@
                     <div class="contact-icon"><i class="bi bi-envelope-fill"></i></div>
                     <h5>Email</h5>
                     <p>
-                        @if(!empty($footer->email))
-                        <a href="mailto:{{ $footer->email }}" class="text-decoration-none">{{ $footer->email }}</a>
+                        @if(!empty($contactInfo->email))
+                        <a href="mailto:{{ $contactInfo->email }}" class="text-decoration-none">{{ $contactInfo->email }}</a>
                         @else
                         info@pisonteknik.co.id
                         @endif
@@ -128,8 +128,8 @@
                 <!-- Google Maps -->
                 <div class="map-card mb-4">
                     <div class="map-container">
-                        @if(!empty($footer->map_embed))
-                        <iframe src="{{ $footer->map_embed }}" width="100%" height="300" style="border:0;"
+                        @if(!empty($contactInfo->map_embed))
+                        <iframe src="{{ $contactInfo->map_embed }}" width="100%" height="300" style="border:0;"
                             allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         @else
                         <iframe
@@ -143,42 +143,42 @@
                 <div class="contact-side-card">
                     <h5 class="mb-4"><i class="bi bi-info-circle-fill text-warning me-2"></i>Informasi Kontak</h5>
 
-                    @if(!empty($footer->address))
+                    @if(!empty($contactInfo->address))
                     <div class="contact-side-item">
                         <div class="contact-side-icon"><i class="bi bi-geo-alt-fill"></i></div>
                         <div>
                             <h6>Alamat</h6>
-                            <p>{{ $footer->address }}</p>
+                            <p>{{ $contactInfo->address }}</p>
                         </div>
                     </div>
                     @endif
 
-                    @if(!empty($footer->whatsapp))
+                    @if(!empty($contactInfo->whatsapp))
                     <div class="contact-side-item">
                         <div class="contact-side-icon" style="background: linear-gradient(135deg, #25D366, #128C7E);"><i class="bi bi-whatsapp"></i></div>
                         <div>
                             <h6>WhatsApp</h6>
-                            <p><a href="https://wa.me/{{ $footer->whatsapp_full }}" target="_blank">{{ $footer->whatsapp_display }}</a></p>
+                            <p><a href="https://wa.me/{{ $contactInfo->whatsapp_full }}" target="_blank">{{ $contactInfo->whatsapp_display }}</a></p>
                         </div>
                     </div>
                     @endif
 
-                    @if(!empty($footer->email))
+                    @if(!empty($contactInfo->email))
                     <div class="contact-side-item">
                         <div class="contact-side-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);"><i class="bi bi-envelope-fill"></i></div>
                         <div>
                             <h6>Email</h6>
-                            <p><a href="mailto:{{ $footer->email }}">{{ $footer->email }}</a></p>
+                            <p><a href="mailto:{{ $contactInfo->email }}">{{ $contactInfo->email }}</a></p>
                         </div>
                     </div>
                     @endif
 
-                    @if(!empty($footer->working_hours))
+                    @if(!empty($contactInfo->working_hours))
                     <div class="contact-side-item">
                         <div class="contact-side-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);"><i class="bi bi-clock-fill"></i></div>
                         <div>
                             <h6>Jam Operasional</h6>
-                            <p>{{ $footer->working_hours }}</p>
+                            <p>{{ $contactInfo->working_hours }}</p>
                         </div>
                     </div>
                     @endif
@@ -197,8 +197,8 @@
                 <p class="cta-desc">Konsultasikan kebutuhan konstruksi Anda dengan tim ahli kami sekarang juga!</p>
             </div>
             <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
-                @if(!empty($footer->whatsapp))
-                <a href="https://wa.me/{{ $footer->whatsapp_full }}" target="_blank" class="btn btn-dark btn-lg">
+                @if(!empty($contactInfo->whatsapp))
+                <a href="https://wa.me/{{ $contactInfo->whatsapp_full }}" target="_blank" class="btn btn-dark btn-lg">
                     <i class="bi bi-whatsapp me-1"></i> Chat WhatsApp
                 </a>
                 @endif

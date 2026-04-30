@@ -108,15 +108,6 @@
                                 <span>TikTok</span>
                             </a>
                         </li>
-
-                        {{-- FOOTER --}}
-                        <li>
-                            <a href="{{ route('admin.footer.edit') }}"
-                                class="{{ request()->routeIs('admin.footer*') ? 'active' : '' }}">
-                                <i class="bi bi-layout-text-window-reverse"></i>
-                                <span>Footer</span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
 
@@ -131,8 +122,14 @@
                                 <span>Pesan Masuk</span>
                                 @php $unread = \App\Models\Contact::where('is_read', false)->count(); @endphp
                                 @if($unread > 0)
-                                <span class="badge bg-danger ms-auto">{{ $unread }}</span>
+                                    <span class="badge bg-danger ms-auto">{{ $unread }}</span>
                                 @endif
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.contact-info.edit') }}"
+                                class="{{ request()->is('admin/contact-info') ? 'active' : '' }}">
+                                <i class="bi bi-building"></i> Info Kontak
                             </a>
                         </li>
                     </ul>
@@ -150,17 +147,17 @@
                 <div class="topbar-right">
                     <a href="{{ route('admin.contacts.index') }}" class="topbar-icon-btn" title="Pesan Masuk">
                         <i class="bi bi-envelope"></i>
-                        @if(\App\Models\Contact::where('is_read',false)->count() > 0)<span
-                            class="topbar-notif"></span>@endif
+                        @if(\App\Models\Contact::where('is_read', false)->count() > 0)<span
+                        class="topbar-notif"></span>@endif
                     </a>
                     <div class="topbar-divider"></div>
                     <div class="dropdown">
                         <button class="btn user-btn dropdown-toggle" data-bs-toggle="dropdown">
                             @if(auth()->user()->avatar)
-                            <img src="{{ auth()->user()->avatar }}" class="user-avatar-img" alt="Avatar">
+                                <img src="{{ auth()->user()->avatar }}" class="user-avatar-img" alt="Avatar">
                             @else
-                            <div class="user-avatar">{{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}
-                            </div>
+                                <div class="user-avatar">{{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}
+                                </div>
                             @endif
                             <span class="d-none d-md-inline">{{ auth()->user()->name ?? 'Admin' }}</span>
                         </button>
@@ -184,21 +181,23 @@
             </header>
 
             <main class="admin-content">
-                @if(session('success'))<div class="alert alert-success alert-dismissible"><i
-                        class="bi bi-check-circle-fill"></i><span>{{ session('success') }}</span><button
-                        class="btn-close" onclick="this.parentElement.remove()">×</button></div>@endif
-                @if(session('error'))<div class="alert alert-danger alert-dismissible"><i
-                        class="bi bi-x-circle-fill"></i><span>{{ session('error') }}</span><button class="btn-close"
-                        onclick="this.parentElement.remove()">×</button></div>@endif
+                @if(session('success'))
+                    <div class="alert alert-success alert-dismissible"><i
+                            class="bi bi-check-circle-fill"></i><span>{{ session('success') }}</span><button
+                class="btn-close" onclick="this.parentElement.remove()">×</button></div>@endif
+                @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible"><i
+                            class="bi bi-x-circle-fill"></i><span>{{ session('error') }}</span><button class="btn-close"
+                onclick="this.parentElement.remove()">×</button></div>@endif
                 @if($errors->any())
-                <div class="alert alert-danger alert-dismissible">
-                    <i class="bi bi-exclamation-triangle-fill"></i>
-                    <div><strong>Ada {{ $errors->count() }} kesalahan:</strong>
-                        <ul class="mb-0 mt-1 ps-3">@foreach($errors->all() as $err)<li>{{ $err }}</li>@endforeach
-                        </ul>
+                    <div class="alert alert-danger alert-dismissible">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                        <div><strong>Ada {{ $errors->count() }} kesalahan:</strong>
+                            <ul class="mb-0 mt-1 ps-3">@foreach($errors->all() as $err)<li>{{ $err }}</li>@endforeach
+                            </ul>
+                        </div>
+                        <button class="btn-close" onclick="this.parentElement.remove()">×</button>
                     </div>
-                    <button class="btn-close" onclick="this.parentElement.remove()">×</button>
-                </div>
                 @endif
 
                 @yield('content')

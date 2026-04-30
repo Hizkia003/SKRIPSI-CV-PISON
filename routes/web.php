@@ -13,7 +13,7 @@ use App\Http\Controllers\Admin\TiktokController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Admin\SiteContentController;
-use App\Http\Controllers\Admin\FooterSettingController;
+use App\Http\Controllers\Admin\ContactInfoController;
 use App\Http\Controllers\Admin\SupplyMaterialController;
 use App\Http\Controllers\Admin\JasaKonstruksiController;
 
@@ -98,11 +98,10 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::delete('contacts/{id}', [ContactController::class, 'destroy'])->name('contacts.destroy');
     Route::patch('contacts/{id}/read', [ContactController::class, 'markAsRead'])->name('contacts.read');
 
+    Route::get('contact-info/edit', [ContactInfoController::class, 'edit'])->name('contact-info.edit');
+    Route::put('contact-info/update', [ContactInfoController::class, 'update'])->name('contact-info.update');
+
     // SITE CONTENTS (HOME)
     Route::get('site-contents', [SiteContentController::class, 'edit'])->name('site-contents.edit');
     Route::put('site-contents', [SiteContentController::class, 'update'])->name('site-contents.update');
-
-    // FOOTER SETTINGS
-    Route::get('footer', [FooterSettingController::class, 'edit'])->name('footer.edit');
-    Route::put('footer', [FooterSettingController::class, 'update'])->name('footer.update');
 });
