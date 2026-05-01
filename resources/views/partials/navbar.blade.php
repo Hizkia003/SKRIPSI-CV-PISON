@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
     <div class="container">
         <a class="navbar-brand fw-bold" href="{{ url('/') }}">
-            <span class="brand-icon"><i class="bi bi-building-gear"></i></span>
-            <span class="brand-text">PISON <span class="text-warning">TEKNIK</span></span>
+            {{-- Ganti icon dengan logo --}}
+            <img src="{{ asset('images/logo-no-bg.png') }}" class="navbar-logo">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
             <span class="navbar-toggler-icon"></span>

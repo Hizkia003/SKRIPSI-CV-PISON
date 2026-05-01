@@ -83,7 +83,7 @@ img { max-width: 100%; height: auto; }
 .navbar-custom {
     background: rgba(255,255,255,0.95);
     backdrop-filter: blur(10px);
-    padding: 15px 0;
+    padding: 10px 0;
     transition: var(--transition);
     box-shadow: 0 2px 20px rgba(0,0,0,0.05);
 }
@@ -112,6 +112,18 @@ img { max-width: 100%; height: auto; }
     transition: var(--transition);
     transform: translateX(-50%);
 }
+.navbar-logo {
+    height: 60px;          /*Tinggi konsisten */
+    width: auto;           /* Proporsi asli */
+    max-height: 75px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+/* Opsional: background gelap untuk kontras */
+.navbar-custom.scrolled .navbar-logo {
+    height: 38px;
+}
+
 .navbar-custom .nav-link:hover::after,
 .navbar-custom .nav-link.active::after { width: 30px; }
 .navbar-custom .nav-link:hover, .navbar-custom .nav-link.active { color: var(--primary-dark) !important; }

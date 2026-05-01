@@ -20,10 +20,10 @@
     <div class="admin-wrapper">
         <aside class="admin-sidebar" id="sidebar">
             <div class="sidebar-brand">
-                <a href="{{ route('admin.dashboard') }}">
-                    <i class="bi bi-building-gear"></i>
-                    <div>
-                        <h5>PISON TEKNIK</h5>
+                <a href="{{ route('admin.dashboard') }}" class="sidebar-brand-link">
+                    <img src="{{ asset('images/logo-no-bg-(admin).png') }}" alt="PISON TEKNIK" class="sidebar-logo">
+                    <div class="sidebar-brand-text">
+                        <h5>CV. PISON TEKNIK INDONESIA</h5>
                         <small>Admin Panel</small>
                     </div>
                 </a>

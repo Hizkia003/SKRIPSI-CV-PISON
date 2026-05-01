@@ -12,13 +12,13 @@
                 </a>
 
                 <p class="footer-desc">
-                    {{ $footer->description ?? 'CV. Pison Teknik Indonesia adalah perusahaan kontraktor profesional.' }}
+                    {{ $contactInfo->company_description ?? 'CV. Pison Teknik Indonesia adalah perusahaan kontraktor profesional.' }}
                 </p>
 
                 {{-- SOSIAL MEDIA (TikTok saja) --}}
-                @if(!empty($footer->tiktok))
+                @if(!empty($contactInfo->tiktok))
                 <div class="footer-social">
-                    <a href="{{ $footer->tiktok }}" target="_blank" rel="noopener" title="TikTok">
+                    <a href="{{ $contactInfo->tiktok }}" target="_blank" rel="noopener" title="TikTok">
                         <i class="bi bi-tiktok"></i>
                     </a>
                 </div>
