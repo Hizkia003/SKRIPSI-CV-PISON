@@ -26,24 +26,6 @@
                         <img src="{{ $project->thumbnail ? asset('storage/' . $project->thumbnail) : asset('images/placeholder.jpg') }}"
                             alt="{{ $project->title }}" class="img-fluid rounded-4 w-100">
                     </div>
-
-                    <!-- Galeri Tambahan (project_images) -->
-                    @if($project->images->count())
-                        <div class="gallery-thumbs">
-                            <h5 class="mb-3">Galeri Proyek</h5>
-                            <div class="row g-2">
-                                @foreach($project->images as $img)
-                                    <div class="col-3 col-md-2">
-                                        <a href="{{ asset('storage/' . $img->image) }}" data-lightbox="project-gallery"
-                                            data-title="{{ $project->title }}">
-                                            <img src="{{ asset('storage/' . $img->image) }}" class="img-fluid rounded-3"
-                                                style="height: 80px; object-fit: cover;">
-                                        </a>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    @endif
                 </div>
 
                 <!-- Right: Info Proyek -->
@@ -67,6 +49,14 @@
                             </p>
                         @endif
 
+                        {{-- DESKRIPSI PROYEK dengan pembatas lebar --}}
+                        @if($project->description)
+                            <div class="mt-3 description-wrapper">
+                                <h5>Deskripsi Proyek</h5>
+                                <p class="text-secondary project-description">{{ $project->description }}</p>
+                            </div>
+                        @endif
+
                         <div class="mt-4">
                             <a href="{{ url('/contact') }}" class="btn btn-warning w-100">
                                 <i class="bi bi-chat-dots-fill me-2"></i> Konsultasi Proyek Serupa
@@ -76,7 +66,7 @@
                 </div>
             </div>
 
-            <!-- Related Projects (Opsional) -->
+            <!-- Related Projects -->
             @if($relatedProjects->count())
                 <div class="mt-5 pt-4">
                     <h3 class="text-center mb-4">Proyek Terkait</h3>
@@ -106,6 +96,19 @@
 
 @push('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css">
+    <style>
+        /* Pastikan deskripsi tidak melebihi lebar container */
+        .description-wrapper {
+            max-width: 100%;
+            overflow-x: auto;
+        }
+        .project-description {
+            word-break: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
+            max-width: 100%;
+        }
+    </style>
 @endpush
 
 @push('scripts')

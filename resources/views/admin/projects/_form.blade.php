@@ -28,6 +28,31 @@
                         value="{{ old('location', $project?->location) }}"
                         placeholder="Contoh: Jakarta Timur, Surabaya, dll">
                 </div>
+
+                {{-- DESKRIPSI PROYEK --}}
+                <div class="mb-3">
+                    <label class="form-label">Deskripsi Proyek</label>
+                    <textarea name="description" rows="5" class="form-control"
+                        placeholder="Deskripsi lengkap proyek...">{{ old('description', $project?->description) }}</textarea>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label">Klien</label>
+                        <input type="text" name="client" class="form-control" value="{{ old('client', $project?->client) }}"
+                            placeholder="Nama klien">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Tahun</label>
+                        <input type="text" name="year" class="form-control" value="{{ old('year', $project?->year) }}"
+                            placeholder="2024">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Durasi</label>
+                        <input type="text" name="duration" class="form-control" value="{{ old('duration', $project?->duration) }}"
+                            placeholder="3 bulan">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -51,29 +76,6 @@
                 <button type="submit" class="btn btn-warning w-100"><i class="bi bi-check-lg me-1"></i> Simpan</button>
                 <a href="{{ route('admin.projects.index') }}" class="btn btn-outline-dark w-100 mt-2">Batal</a>
             </div>
-        </div>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Deskripsi Proyek</label>
-        <textarea name="description" rows="5" class="form-control"
-            placeholder="Deskripsi lengkap proyek...">{{ old('description', $project?->description) }}</textarea>
-    </div>
-    <div class="row g-3">
-        <div class="col-md-4">
-            <label class="form-label">Klien</label>
-            <input type="text" name="client" class="form-control" value="{{ old('client', $project?->client) }}"
-                placeholder="Nama klien">
-        </div>
-        <div class="col-md-4">
-            <label class="form-label">Tahun</label>
-            <input type="text" name="year" class="form-control" value="{{ old('year', $project?->year) }}"
-                placeholder="2024">
-        </div>
-        <div class="col-md-4">
-            <label class="form-label">Durasi</label>
-            <input type="text" name="duration" class="form-control" value="{{ old('duration', $project?->duration) }}"
-                placeholder="3 bulan">
         </div>
     </div>
 </div>
