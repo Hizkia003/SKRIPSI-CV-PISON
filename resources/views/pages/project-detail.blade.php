@@ -1,16 +1,16 @@
 @extends('layouts.app')
-@section('title', $project->title)
+@section('title', 'Detail Projects - ' . $project->title)
 
 @section('content')
     <!-- Page Header -->
     <section class="page-header">
         <div class="container">
-            <h1 data-aos="fade-up">{{ $project->title }}</h1>
+            <h1 data-aos="fade-up">Detail Projects</h1>
             <nav data-aos="fade-up" data-aos-delay="100">
                 <ol class="breadcrumb justify-content-center">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ url('/projects') }}">Projects</a></li>
-                    <li class="breadcrumb-item active">{{ $project->title }}</li>
+                    <li class="breadcrumb-item active">Detail Projects</li>
                 </ol>
             </nav>
         </div>
@@ -21,11 +21,27 @@
             <div class="row g-5">
                 <!-- Left: Galeri Utama + Thumbnail -->
                 <div class="col-lg-7" data-aos="fade-right">
-                    <!-- Main Image -->
                     <div class="main-image mb-4">
                         <img src="{{ $project->thumbnail ? asset('storage/' . $project->thumbnail) : asset('images/placeholder.jpg') }}"
                             alt="{{ $project->title }}" class="img-fluid rounded-4 w-100">
                     </div>
+
+                    @if($project->images->count())
+                        <div class="gallery-thumbs">
+                            <h5 class="mb-3">Galeri Proyek</h5>
+                            <div class="row g-2">
+                                @foreach($project->images as $img)
+                                    <div class="col-3 col-md-2">
+                                        <a href="{{ asset('storage/' . $img->image) }}" data-lightbox="project-gallery"
+                                            data-title="{{ $project->title }}">
+                                            <img src="{{ asset('storage/' . $img->image) }}" class="img-fluid rounded-3"
+                                                style="height: 80px; object-fit: cover;">
+                                        </a>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
                 </div>
 
                 <!-- Right: Info Proyek -->
@@ -49,13 +65,13 @@
                             </p>
                         @endif
 
-                        {{-- DESKRIPSI PROYEK dengan pembatas lebar --}}
-                        @if($project->description)
-                            <div class="mt-3 description-wrapper">
-                                <h5>Deskripsi Proyek</h5>
-                                <p class="text-secondary project-description">{{ $project->description }}</p>
-                            </div>
-                        @endif
+                        {{-- DESKRIPSI PROYEK -- selalu tampilkan area, dengan fallback jika kosong --}}
+                        <div class="mt-3 description-wrapper">
+                            <h5>Deskripsi Proyek</h5>
+                            <p class="text-secondary project-description">
+                                {{ $project->description ?: 'Belum ada deskripsi untuk proyek ini.' }}
+                            </p>
+                        </div>
 
                         <div class="mt-4">
                             <a href="{{ url('/contact') }}" class="btn btn-warning w-100">
@@ -66,7 +82,6 @@
                 </div>
             </div>
 
-            <!-- Related Projects -->
             @if($relatedProjects->count())
                 <div class="mt-5 pt-4">
                     <h3 class="text-center mb-4">Proyek Terkait</h3>
@@ -97,7 +112,6 @@
 @push('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css">
     <style>
-        /* Pastikan deskripsi tidak melebihi lebar container */
         .description-wrapper {
             max-width: 100%;
             overflow-x: auto;
