@@ -1,5 +1,5 @@
 /* ============================================
-   ADMIN PANEL - PISON TEKNIK
+   ADMIN PANEL - PISON TEKNIK (FULL WIDTH FIX)
    Modern, Clean & Professional
    ============================================ */
 
@@ -22,6 +22,8 @@ body {
     color: #1a1a1a;
     font-size: 0.9rem;
     overflow-x: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 /* ============== SIDEBAR ============== */
@@ -91,19 +93,19 @@ body {
 /* Sidebar brand: logo di atas teks */
 .sidebar-brand-link {
     display: flex;
-    flex-direction: column; /* tumpuk vertikal */
-    align-items: center; /* rata tengah */
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    gap: 12px; /* jarak antara logo dan teks */
+    gap: 12px;
     text-decoration: none;
     color: #fff;
 }
 
 .sidebar-logo {
-    width: 120px; /* ukuran logo, bisa disesuaikan */
+    width: 120px;
     height: auto;
     object-fit: contain;
-    border-radius: 12px; /* opsional */
+    border-radius: 12px;
 }
 
 .sidebar-brand-text h5 {
@@ -195,13 +197,16 @@ body {
     z-index: 999;
 }
 
-/* ============== MAIN CONTENT ============== */
+/* ============== MAIN CONTENT (FULL WIDTH) ============== */
 .admin-main {
     margin-left: 260px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     transition: margin-left 0.3s ease;
+    width: calc(100% - 260px);
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 /* Topbar */
@@ -319,10 +324,64 @@ body {
     border-color: #e2e8f0;
 }
 
-/* ============== CONTENT AREA ============== */
+/* ============== CONTENT AREA (FULL WIDTH) ============== */
 .admin-content {
-    padding: 28px 30px;
+    padding: 20px 30px !important;
+    width: 100% !important;
+    max-width: 100% !important;
     flex: 1;
+    overflow-x: hidden;
+}
+
+/* Hilangkan potensi container pembatas */
+.admin-content .container,
+.admin-content .container-fluid,
+.admin-content .container-lg,
+.admin-content .container-md,
+.admin-content .container-sm,
+.admin-content .container-xl,
+.container,
+.container-fluid {
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+/* Pastikan semua card dan tabel full width */
+.admin-content .card {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    border-radius: 14px;
+}
+.card-body .row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+.card-body .row > [class*="col-"] {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+}
+
+/* Table responsive tanpa padding berlebih */
+.table-responsive {
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 0;
+    width: 100% !important;
+}
+
+/* DataTables wrapper full width */
+.dataTables_wrapper {
+    padding: 0 !important;
+}
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter {
+    padding: 16px 20px !important;
+}
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+    padding: 16px 20px !important;
 }
 
 .content-header {
@@ -357,7 +416,7 @@ body {
 .card-header {
     background: #fff;
     border-bottom: 1px solid #f1f5f9;
-    padding: 18px 24px;
+    padding: 16px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -382,7 +441,7 @@ body {
 }
 
 .card-body {
-    padding: 24px;
+    padding: 20px;
 }
 
 /* ============== STATS CARDS ============== */
@@ -723,13 +782,14 @@ textarea.form-control {
 /* ============== TABLES ============== */
 .table-responsive {
     border-radius: 12px;
-    overflow: hidden;
+    overflow-x: auto;
     border: 1px solid #e2e8f0;
 }
 
 .table {
     margin: 0;
     font-size: 0.87rem;
+    width: 100%;
 }
 
 .table thead {
@@ -1112,6 +1172,8 @@ textarea.form-control {
 .admin-wrapper {
     display: flex;
     min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .sidebar-toggle {
@@ -1384,73 +1446,6 @@ textarea.form-control {
     margin: 0;
 }
 
-/* ============== TIKTOK ADMIN CARD ============== */
-.tiktok-admin-card {
-    background: #fff;
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-    border: 1px solid #e2e8f0;
-    transition: all 0.25s;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-.tiktok-admin-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-    border-color: #ffc107;
-}
-.tiktok-admin-thumb {
-    position: relative;
-    aspect-ratio: 9/16;
-    background: linear-gradient(135deg, #0f172a, #1e293b);
-    overflow: hidden;
-    max-height: 300px;
-}
-.tiktok-admin-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s;
-}
-.tiktok-admin-card:hover .tiktok-admin-thumb img {
-    transform: scale(1.06);
-}
-.tiktok-admin-thumb .no-thumb {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffc107;
-    font-size: 3rem;
-}
-.tiktok-admin-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-.tiktok-admin-body {
-    padding: 14px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-.tiktok-admin-body h6 {
-    font-size: 0.88rem;
-    font-weight: 600;
-    margin-bottom: 6px;
-    line-height: 1.4;
-    color: #1a1a1a;
-}
-.tiktok-admin-body p {
-    font-size: 0.78rem;
-    color: #64748b;
-    margin-bottom: 10px;
-    flex: 1;
-}
-
 /* ============== CK EDITOR ============== */
 .ck-editor__editable {
     min-height: 320px;
@@ -1472,11 +1467,11 @@ textarea.form-control {
 
 /* ============== DATATABLES ============== */
 .dataTables_wrapper {
-    padding: 0 20px 10px;
+    padding: 0 !important;
 }
 .dataTables_wrapper .dataTables_length,
 .dataTables_wrapper .dataTables_filter {
-    padding: 16px 0;
+    padding: 16px 20px !important;
     font-size: 0.82rem;
     color: #64748b;
 }
@@ -1493,13 +1488,11 @@ textarea.form-control {
     outline: none;
     box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.15);
 }
-.dataTables_wrapper .dataTables_info {
-    padding: 16px 0;
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+    padding: 16px 20px !important;
     font-size: 0.8rem;
     color: #64748b;
-}
-.dataTables_wrapper .dataTables_paginate {
-    padding: 16px 0;
 }
 .paginate_button {
     border-radius: 8px !important;
@@ -1714,6 +1707,7 @@ button {
     }
     .admin-main {
         margin-left: 0 !important;
+        width: 100% !important;
     }
     .sidebar-toggle,
     .menu-toggle {
@@ -1722,11 +1716,14 @@ button {
     .welcome-banner .banner-icon {
         display: none;
     }
+    .admin-content {
+        padding: 15px 18px !important;
+    }
 }
 
 @media (max-width: 767.98px) {
     .admin-content {
-        padding: 18px;
+        padding: 12px 15px !important;
     }
     .admin-topbar {
         padding: 12px 18px;

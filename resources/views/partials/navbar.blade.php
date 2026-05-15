@@ -19,8 +19,7 @@
                         href="{{ url('/jasa-konstruksi') }}">Jasa Konstruksi</a></li>
                 <li class="nav-item"><a class="nav-link {{ request()->is('projects*') ? 'active' : '' }}"
                         href="{{ url('/projects') }}">Projects</a></li>
-                <li class="nav-item"><a class="nav-link {{ request()->is('tiktok') ? 'active' : '' }}"
-                        href="{{ url('/tiktok') }}">TikTok</a></li>
+
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('certificates') ? 'active' : '' }}"
                         href="{{ url('/certificates') }}">

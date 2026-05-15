@@ -29,8 +29,8 @@
                     <span class="section-subtitle">TENTANG KAMI</span>
                     <h2 class="section-title mb-4">Kontraktor Profesional dengan <span class="text-warning">Pengalaman
                             Luas</span></h2>
-                    <p class="lead mb-3">{{ $about->company_name ?? 'CV. Pison Teknik Indonesia' }}</p>
-                    <p class="text-muted mb-4">{{ $about->description ?? 'Deskripsi perusahaan belum tersedia.' }}</p>
+                    <p class="lead mb-3">CV. Pison Teknik Indonesia</p>
+                    <p class="text-muted mb-4">CV. Pison Teknik Indonesia merupakan perusahaan kontraktor yang berdiri sejak tahun 2022 dan bergerak di bidang jasa renovasi serta konstruksi bangunan, dengan fokus pada pekerjaan struktur dan atap untuk kebutuhan gedung industrial maupun bangunan residensial. Seiring dengan perkembangan usaha dan meningkatnya kebutuhan pasar, perusahaan ini juga memperluas layanannya sebagai distributor material bahan bangunan, khususnya pada sektor atap dan konstruksi, guna memberikan solusi yang lebih terintegrasi kepada pelanggan. Dengan mengedepankan kualitas pekerjaan, ketepatan waktu, serta pelayanan yang profesional, CV. Pison Teknik Indonesia berkomitmen untuk menjadi mitra yang dapat diandalkan dalam setiap proyek yang dikerjakan.</p>
                     <div class="row g-3 mb-4">
                         <div class="col-md-6">
                             <div class="about-feature"><i class="bi bi-check-circle-fill text-warning"></i><span>Sertifikat
@@ -62,11 +62,8 @@
                         <div class="vm-icon"><i class="bi bi-eye-fill"></i></div>
                         <h3>Visi</h3>
                         <ol class="number-list">
-                            @forelse($visions as $vision)
-                                <li>{{ $vision->content }}</li>
-                            @empty
-                                <li class="text-muted">Visi belum ditambahkan</li>
-                            @endforelse
+                            <li>Menjadi perusahaan kontraktor terdepan di Indonesia yang mengedepankan kualitas, keselamatan, dan inovasi.</li>
+                            <li>Mewujudkan ekosistem pembangunan berkelanjutan yang memberikan nilai tambah bagi masyarakat dan lingkungan.</li>
                         </ol>
                     </div>
                 </div>
@@ -77,11 +74,10 @@
                         <div class="vm-icon"><i class="bi bi-bullseye"></i></div>
                         <h3>Misi</h3>
                         <ol class="number-list">
-                            @forelse($missions as $mission)
-                                <li>{{ $mission->content }}</li>
-                            @empty
-                                <li class="text-muted">Misi belum ditambahkan</li>
-                            @endforelse
+                            <li>Menyediakan jasa konstruksi berkualitas tinggi sesuai standar nasional dan internasional.</li>
+                            <li>Menerapkan teknologi terkini untuk efisiensi waktu dan biaya proyek.</li>
+                            <li>Membangun kemitraan jangka panjang dengan klien berdasarkan kepercayaan dan hasil nyata.</li>
+                            <li>Meningkatkan kompetensi sumber daya manusia secara berkelanjutan melalui pelatihan dan sertifikasi.</li>
                         </ol>
                     </div>
                 </div>
@@ -99,21 +95,42 @@
             </div>
 
             <div class="row g-4 justify-content-center">
-                @forelse($advantages as $advantage)
-                    <div class="col-sm-6 col-lg-3" data-aos="zoom-in-up" data-aos-delay="{{ $loop->index * 100 }}">
-                        <div class="advantage-card-new">
-                            <div class="adv-icon">
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                            <h5 class="adv-name">{{ $advantage->name }}</h5>
-                            <p class="adv-desc">{{ $advantage->content }}</p>
+                <div class="col-sm-6 col-lg-3" data-aos="zoom-in-up" data-aos-delay="0">
+                    <div class="advantage-card-new">
+                        <div class="adv-icon">
+                            <i class="bi bi-star-fill"></i>
                         </div>
+                        <h5 class="adv-name">Tenaga Ahli Berpengalaman</h5>
+                        <p class="adv-desc">Tim kami terdiri dari para profesional bersertifikasi nasional dengan pengalaman di berbagai proyek besar.</p>
                     </div>
-                @empty
-                    <div class="col-12 text-center text-muted">
-                        <p>Keunggulan belum tersedia.</p>
+                </div>
+                <div class="col-sm-6 col-lg-3" data-aos="zoom-in-up" data-aos-delay="100">
+                    <div class="advantage-card-new">
+                        <div class="adv-icon">
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <h5 class="adv-name">Material Berkualitas</h5>
+                        <p class="adv-desc">Kami hanya menggunakan bahan baku premium yang telah teruji untuk menjamin kekuatan dan ketahanan bangunan.</p>
                     </div>
-                @endforelse
+                </div>
+                <div class="col-sm-6 col-lg-3" data-aos="zoom-in-up" data-aos-delay="200">
+                    <div class="advantage-card-new">
+                        <div class="adv-icon">
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <h5 class="adv-name">Harga Kompetitif</h5>
+                        <p class="adv-desc">Dapatkan penawaran terbaik dengan transparansi biaya tanpa biaya tersembunyi.</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3" data-aos="zoom-in-up" data-aos-delay="300">
+                    <div class="advantage-card-new">
+                        <div class="adv-icon">
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <h5 class="adv-name">Tepat Waktu</h5>
+                        <p class="adv-desc">Komitmen kami menyelesaikan setiap proyek sesuai jadwal yang disepakati tanpa mengorbankan kualitas.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

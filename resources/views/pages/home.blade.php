@@ -12,7 +12,7 @@
                     Membangun <span class="text-warning">Masa Depan</span> dengan Kualitas Terbaik
                 </h1>
                 <p class="hero-desc">
-                    {{ $siteContent->home_description ?? 'CV. Pison Teknik Indonesia adalah mitra terpercaya Anda untuk solusi konstruksi profesional.' }}
+                    CV. Pison Teknik Indonesia adalah perusahaan kontraktor yang menyediakan jasa konstruksi dan renovasi bangunan dengan fokus pada pekerjaan struktur dan atap, serta didukung penyediaan material berkualitas untuk memenuhi kebutuhan proyek secara menyeluruh.
                 </p>
                 <div class="hero-buttons">
                     <a href="{{ url('/contact') }}" class="btn btn-warning btn-lg me-2">
@@ -34,7 +34,7 @@
                     <div class="hero-card-float">
                         <i class="bi bi-building text-warning"></i>
                         <div>
-                            <h6 class="mb-0">{{ $siteContent->total_projects ?? 500 }}+ Proyek</h6>
+                            <h6 class="mb-0">250+ Proyek</h6>
                             <small>Telah diselesaikan</small>
                         </div>
                     </div>
@@ -51,14 +51,14 @@
             <div class="col-lg-5 col-md-6" data-aos="fade-up">
                 <div class="stat-card">
                     <div class="stat-icon"><i class="bi bi-building-check"></i></div>
-                    <h2 class="stat-number" data-count="{{ $siteContent->total_projects ?? 500 }}">0</h2>
+                    <h2 class="stat-number" data-count="250">0</h2>
                     <p>Proyek Selesai</p>
                 </div>
             </div>
             <div class="col-lg-5 col-md-6" data-aos="fade-up" data-aos-delay="100">
                 <div class="stat-card">
                     <div class="stat-icon"><i class="bi bi-calendar-check"></i></div>
-                    <h2 class="stat-number" data-count="{{ $siteContent->experience_years ?? 15 }}">0</h2>
+                    <h2 class="stat-number" data-count="4">0</h2>
                     <p>Tahun Pengalaman</p>
                 </div>
             </div>

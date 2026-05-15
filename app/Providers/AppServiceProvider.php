@@ -18,11 +18,6 @@ class AppServiceProvider extends ServiceProvider
         // Share data ke semua view
         View::composer('*', function ($view) {
 
-            // Site Content (Home)
-            if (Schema::hasTable('site_contents')) {
-                $view->with('siteContent', \App\Models\SiteContent::first());
-            }
-
             $contactInfo = \App\Models\ContactInfo::first();
             $view->with('contactInfo', $contactInfo);
 

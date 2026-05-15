@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
-use App\Models\Service;
 use App\Models\Contact;
-use App\Models\Tiktok;
 use App\Models\Certificate;
 
 class DashboardController extends Controller
@@ -15,10 +13,8 @@ class DashboardController extends Controller
     {
         $stats = [
             'projects' => Project::count(),
-            'services' => Service::count(),
             'contacts' => Contact::count(),
             'unread_contacts' => Contact::where('is_read', false)->count(),
-            'tiktoks' => Tiktok::count(),
             'certificates' => Certificate::count(),
             'legalitas_count' => Certificate::where('category', 'company_legalitas')->count(),
             'worker_cert_count' => Certificate::where('category', 'worker_certificate')->count(),

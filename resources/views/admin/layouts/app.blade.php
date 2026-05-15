@@ -46,24 +46,6 @@
                 <div class="sidebar-group">
                     <span class="sidebar-group-label">Konten Website</span>
                     <ul>
-                        {{-- HOME --}}
-                        <li>
-                            <a href="{{ route('admin.site-contents.edit') }}"
-                                class="{{ request()->routeIs('admin.site-contents*') ? 'active' : '' }}">
-                                <i class="bi bi-house-heart-fill"></i>
-                                <span>Konten Home</span>
-                            </a>
-                        </li>
-
-                        {{-- ABOUT --}}
-                        <li>
-                            <a href="{{ route('admin.about.edit') }}"
-                                class="{{ request()->routeIs('admin.about*') ? 'active' : '' }}">
-                                <i class="bi bi-info-circle-fill"></i>
-                                <span>About</span>
-                            </a>
-                        </li>
-
                         {{-- SUPPLY MATERIAL --}}
                         <li>
                             <a href="{{ route('admin.supply-materials.index') }}"
@@ -99,33 +81,13 @@
                                 <span>Sertifikat</span>
                             </a>
                         </li>
-
-                        {{-- TIKTOK --}}
-                        <li>
-                            <a href="{{ route('admin.tiktoks.index') }}"
-                                class="{{ request()->routeIs('admin.tiktoks*') ? 'active' : '' }}">
-                                <i class="bi bi-tiktok"></i>
-                                <span>TikTok</span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
 
+                {{-- Group Pengaturan (Info Kontak) --}}
                 <div class="sidebar-group">
-                    <span class="sidebar-group-label">Komunikasi</span>
+                    <span class="sidebar-group-label">Pengaturan</span>
                     <ul>
-                        {{-- CONTACTS --}}
-                        <li>
-                            <a href="{{ route('admin.contacts.index') }}"
-                                class="{{ request()->routeIs('admin.contacts*') ? 'active' : '' }}">
-                                <i class="bi bi-envelope-fill"></i>
-                                <span>Pesan Masuk</span>
-                                @php $unread = \App\Models\Contact::where('is_read', false)->count(); @endphp
-                                @if($unread > 0)
-                                    <span class="badge bg-danger ms-auto">{{ $unread }}</span>
-                                @endif
-                            </a>
-                        </li>
                         <li>
                             <a href="{{ route('admin.contact-info.edit') }}"
                                 class="{{ request()->is('admin/contact-info') ? 'active' : '' }}">
@@ -145,28 +107,20 @@
                     <small>@yield('page-subtitle', 'Selamat datang di dashboard admin')</small>
                 </div>
                 <div class="topbar-right">
-                    <a href="{{ route('admin.contacts.index') }}" class="topbar-icon-btn" title="Pesan Masuk">
-                        <i class="bi bi-envelope"></i>
-                        @if(\App\Models\Contact::where('is_read', false)->count() > 0)<span
-                        class="topbar-notif"></span>@endif
-                    </a>
-                    <div class="topbar-divider"></div>
+                    {{-- Ikon pesan masuk di topbar telah dihapus --}}
                     <div class="dropdown">
                         <button class="btn user-btn dropdown-toggle" data-bs-toggle="dropdown">
-                            @if(auth()->user()->avatar)
-                                <img src="{{ auth()->user()->avatar }}" class="user-avatar-img" alt="Avatar">
+                            @php $user = auth()->user(); @endphp
+                            @if($user && $user->avatar)
+                                <img src="{{ $user->avatar }}" class="user-avatar-img" alt="Avatar">
                             @else
-                                <div class="user-avatar">{{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}
-                                </div>
+                                <div class="user-avatar">{{ strtoupper(substr($user?->name ?? 'A', 0, 1)) }}</div>
                             @endif
-                            <span class="d-none d-md-inline">{{ auth()->user()->name ?? 'Admin' }}</span>
+                            <span class="d-none d-md-inline">{{ $user?->name ?? 'Admin' }}</span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><span class="dropdown-item-text small text-muted">{{ auth()->user()->email }}</span>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
+                            <li><span class="dropdown-item-text small text-muted">{{ $user?->email ?? '' }}</span></li>
+                            <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form action="{{ route('admin.logout') }}" method="POST">
                                     @csrf
@@ -182,19 +136,16 @@
 
             <main class="admin-content">
                 @if(session('success'))
-                    <div class="alert alert-success alert-dismissible"><i
-                            class="bi bi-check-circle-fill"></i><span>{{ session('success') }}</span><button
-                class="btn-close" onclick="this.parentElement.remove()">×</button></div>@endif
+                    <div class="alert alert-success alert-dismissible"><i class="bi bi-check-circle-fill"></i><span>{{ session('success') }}</span><button class="btn-close" onclick="this.parentElement.remove()">×</button></div>
+                @endif
                 @if(session('error'))
-                    <div class="alert alert-danger alert-dismissible"><i
-                            class="bi bi-x-circle-fill"></i><span>{{ session('error') }}</span><button class="btn-close"
-                onclick="this.parentElement.remove()">×</button></div>@endif
+                    <div class="alert alert-danger alert-dismissible"><i class="bi bi-x-circle-fill"></i><span>{{ session('error') }}</span><button class="btn-close" onclick="this.parentElement.remove()">×</button></div>
+                @endif
                 @if($errors->any())
                     <div class="alert alert-danger alert-dismissible">
                         <i class="bi bi-exclamation-triangle-fill"></i>
                         <div><strong>Ada {{ $errors->count() }} kesalahan:</strong>
-                            <ul class="mb-0 mt-1 ps-3">@foreach($errors->all() as $err)<li>{{ $err }}</li>@endforeach
-                            </ul>
+                            <ul class="mb-0 mt-1 ps-3">@foreach($errors->all() as $err)<li>{{ $err }}</li>@endforeach</ul>
                         </div>
                         <button class="btn-close" onclick="this.parentElement.remove()">×</button>
                     </div>
@@ -203,24 +154,15 @@
                 @yield('content')
             </main>
 
-            {{-- ADMIN FOOTER --}}
             <footer class="admin-footer">
                 <div class="admin-footer-container">
                     <div class="admin-footer-left">
-                        <p class="mb-0">
-                            &copy; {{ date('Y') }}
-                            <strong>{{ $siteContent->company_name ?? 'PISON TEKNIK INDONESIA' }}</strong>.
-                            All Rights Reserved.
-                        </p>
+                        <p class="mb-0">&copy; {{ date('Y') }} <strong>PISON TEKNIK INDONESIA</strong>. All Rights Reserved.</p>
                     </div>
                     <div class="admin-footer-right">
-                        <span class="admin-footer-version">
-                            <i class="bi bi-code-slash"></i> Admin Panel v1.0
-                        </span>
+                        <span class="admin-footer-version"><i class="bi bi-code-slash"></i> Admin Panel v1.0</span>
                         <span class="admin-footer-divider">|</span>
-                        <a href="{{ url('/') }}" target="_blank" class="admin-footer-link">
-                            <i class="bi bi-globe"></i> Lihat Website
-                        </a>
+                        <a href="{{ url('/') }}" target="_blank" class="admin-footer-link"><i class="bi bi-globe"></i> Lihat Website</a>
                     </div>
                 </div>
             </footer>

@@ -23,18 +23,22 @@ class JasaKonstruksiController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'is_active' => 'nullable',
-            'order' => 'nullable|integer',
-            'images' => 'nullable|array',
-            'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+        // Pastikan is_active selalu dikirim sebagai boolean
+        $request->merge([
+            'is_active' => $request->has('is_active') ? true : false,
         ]);
 
-        $data['is_active'] = $request->has('is_active');
-        $data['order'] = $data['order'] ?? 0;
-        unset($data['images']);
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'is_active' => 'boolean',  // sekarang selalu ada (true/false)
+            'order' => 'nullable|integer|min:0',
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:3072',
+        ]);
+
+        $data = $request->except('images');
+        $data['order'] = $validated['order'] ?? 0;
 
         $jasa = JasaKonstruksi::create($data);
 
@@ -55,39 +59,33 @@ class JasaKonstruksiController extends Controller
         return view('admin.jasa-konstruksi.edit', compact('jasa_konstruksi'));
     }
 
-    public function update(Request $request, JasaKonstruksi $jasa_konstruksi)
+    public function update(Request $request, $id) // atau (Request $request, JasaKonstruksi $jasaKonstruksi)
     {
-        $data = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'is_active' => 'nullable',
-            'order' => 'nullable|integer',
-            'images' => 'nullable|array',
-            'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+        $jasa = JasaKonstruksi::findOrFail($id);
+
+        $request->merge([
+            'is_active' => $request->has('is_active') ? true : false,
         ]);
 
-        $data['is_active'] = $request->has('is_active');
-        unset($data['images']);
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'is_active' => 'boolean',
+            'order' => 'nullable|integer|min:0',
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:3072',
+        ]);
 
-        $jasa_konstruksi->update($data);
+        $data = $request->except('images');
+        $data['order'] = $validated['order'] ?? 0;
 
-        // Hapus gambar yang ditandai
-        if ($request->has('delete_images')) {
-            foreach ($request->delete_images as $imgId) {
-                $img = JasaKonstruksiImage::find($imgId);
-                if ($img && $img->jasa_konstruksi_id == $jasa_konstruksi->id) {
-                    Storage::disk('public')->delete($img->image);
-                    $img->delete();
-                }
-            }
-        }
+        $jasa->update($data);
 
-        // Tambah gambar baru
         if ($request->hasFile('images')) {
-            $currentCount = $jasa_konstruksi->images()->count();
+            // Opsional: hapus gambar lama
             foreach ($request->file('images') as $i => $file) {
                 $path = $file->store('jasa-konstruksi', 'public');
-                $jasa_konstruksi->images()->create(['image' => $path, 'order' => $currentCount + $i]);
+                $jasa->images()->create(['image' => $path, 'order' => $i]);
             }
         }
 
