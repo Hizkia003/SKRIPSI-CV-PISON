@@ -17,7 +17,32 @@
             </div>
         </div>
     </div>
+
     <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header"><h5>Gambar Material</h5></div>
+            <div class="card-body">
+                @if($material && $material->image)
+                    <div class="mb-3 text-center">
+                        <img src="{{ asset('storage/' . $material->image) }}" 
+                             class="img-fluid rounded" style="max-width: 100%; max-height: 180px; border: 1px solid #ddd;">
+                        <div class="mt-2">
+                            <div class="form-check">
+                                <input type="checkbox" name="delete_image" value="1" id="deleteImage" class="form-check-input">
+                                <label class="form-check-label text-danger" for="deleteImage">Hapus gambar saat ini</label>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                <div class="mb-3">
+                    <label class="form-label">Upload Gambar Baru</label>
+                    <input type="file" name="image" class="form-control image-input" accept="image/*" data-preview="#imagePreview">
+                    <small class="form-text">Format: JPG, PNG, WebP. Maks 2MB.</small>
+                    <img id="imagePreview" src="#" class="img-fluid mt-2 rounded" style="max-height: 150px; display: none;">
+                </div>
+            </div>
+        </div>
+
         <div class="card">
             <div class="card-header"><h5>Pengaturan</h5></div>
             <div class="card-body">
@@ -37,3 +62,24 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+    document.querySelectorAll('.image-input').forEach(input => {
+        input.addEventListener('change', function(e) {
+            const previewId = this.dataset.preview;
+            if (previewId && this.files && this.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    const preview = document.querySelector(previewId);
+                    if (preview) {
+                        preview.src = ev.target.result;
+                        preview.style.display = 'block';
+                    }
+                };
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    });
+</script>
+@endpush

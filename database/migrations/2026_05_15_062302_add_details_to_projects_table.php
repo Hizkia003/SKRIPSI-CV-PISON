@@ -11,10 +11,18 @@ return new class extends Migration {
     public function up()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->text('description')->nullable()->after('location');
-            $table->string('client')->nullable()->after('description');
-            $table->string('year')->nullable()->after('client');
-            $table->string('duration')->nullable()->after('year');
+            if (!Schema::hasColumn('projects', 'description')) {
+                $table->text('description')->nullable()->after('location');
+            }
+            if (!Schema::hasColumn('projects', 'client')) {
+                $table->string('client')->nullable()->after('description');
+            }
+            if (!Schema::hasColumn('projects', 'year')) {
+                $table->string('year')->nullable()->after('client');
+            }
+            if (!Schema::hasColumn('projects', 'duration')) {
+                $table->string('duration')->nullable()->after('year');
+            }
         });
     }
 

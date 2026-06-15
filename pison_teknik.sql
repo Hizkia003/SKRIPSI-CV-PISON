@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2026 at 08:05 AM
+-- Generation Time: May 17, 2026 at 07:20 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -222,9 +222,9 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`id`, `title`, `slug`, `description`, `category`, `location`, `year`, `client`, `duration`, `status`, `thumbnail`, `is_featured`, `created_at`, `updated_at`) VALUES
-(1, 'Pemasangan Atap Kliplok & Insulasi Aluminium di Sidoarjo', 'pemasangan-atap-kliplok-insulasi-aluminium-di-sidoarjo-1777652394', NULL, 'atap-dinding-lisplang', 'Sidoarjo, Jawa Timur', NULL, NULL, NULL, 'completed', 'projects/KZC5jrY2JJTZHhFP2ias0rC00qBdYD09zQRoFMyt.jpg', 0, '2026-05-01 09:19:54', '2026-05-01 09:35:54'),
-(2, 'Pemasangan Atap Kliplok & Insulasi Aluminium di Sidoarjo', 'pemasangan-atap-kliplok-insulasi-aluminium-di-sidoarjo-1777653416', NULL, 'insulasi', 'SIdoarjo, Jawa Timur', NULL, NULL, NULL, 'completed', 'projects/oKA6eiJC2XMLuN992d4oEIAftF4ynpmdqKFfPe9J.jpg', 0, '2026-05-01 09:36:56', '2026-05-01 09:36:56'),
-(3, 'Bongkar Pasang Atap Skylight Fiberglass di Sidoarjo', 'bongkar-pasang-atap-skylight-fiberglass-di-sidoarjo-1777653634', NULL, 'talang-skylight', 'Sidoarjo, Jawa Timur', NULL, NULL, NULL, 'completed', 'projects/pTsZKQlmXgxIKIM6thhYmOplH8Vn9XVd1Mc9TOBP.jpg', 0, '2026-05-01 09:40:34', '2026-05-01 09:40:34');
+(1, 'Pemasangan Atap Kliplok & Insulasi Aluminium di Sidoarjo', 'pemasangan-atap-kliplok-insulasi-aluminium-di-sidoarjo-1777652394', 'sdsadaddasdas', 'atap-dinding-lisplang', 'Sidoarjo, Jawa Timur', NULL, NULL, NULL, 'completed', 'projects/KZC5jrY2JJTZHhFP2ias0rC00qBdYD09zQRoFMyt.jpg', 0, '2026-05-01 09:19:54', '2026-05-15 03:35:24'),
+(2, 'Pemasangan Atap Kliplok & Insulasi Aluminium di Sidoarjo', 'pemasangan-atap-kliplok-insulasi-aluminium-di-sidoarjo-1777653416', 'dfffafafa', 'insulasi', 'SIdoarjo, Jawa Timur', NULL, NULL, NULL, 'completed', 'projects/oKA6eiJC2XMLuN992d4oEIAftF4ynpmdqKFfPe9J.jpg', 0, '2026-05-01 09:36:56', '2026-05-15 03:35:09'),
+(3, 'Bongkar Pasang Atap Skylight Fiberglass di Sidoarjo', 'bongkar-pasang-atap-skylight-fiberglass-di-sidoarjo-1777653634', 'dlasdnaskjdbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', 'talang-skylight', 'Sidoarjo, Jawa Timur', NULL, NULL, NULL, 'completed', 'projects/pTsZKQlmXgxIKIM6thhYmOplH8Vn9XVd1Mc9TOBP.jpg', 0, '2026-05-01 09:40:34', '2026-05-15 03:15:24');
 
 -- --------------------------------------------------------
 
@@ -240,6 +240,13 @@ CREATE TABLE `project_images` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `project_images`
+--
+
+INSERT INTO `project_images` (`id`, `project_id`, `image`, `order`, `created_at`, `updated_at`) VALUES
+(1, 3, 'project_galleries/AIlGu5ga1c5525TFoefucJ1lXdrCOetoLuXTfWX2.jpg', 0, '2026-05-14 23:08:05', '2026-05-14 23:08:05');
 
 -- --------------------------------------------------------
 
@@ -280,10 +287,10 @@ CREATE TABLE `supply_materials` (
 --
 
 INSERT INTO `supply_materials` (`id`, `title`, `slug`, `description`, `icon`, `image`, `is_active`, `order`, `created_at`, `updated_at`) VALUES
-(1, 'Zincalum Metal', 'zincalum-metal-1777655926', 'Zincalum (atau Zincalume®) adalah baja yang dilapisi dengan campuran 55% aluminium, 43.4% seng, dan 1.6% silikon. Perpaduan ini memberikan ketahanan korosi yang luar biasa; aluminium memberikan ketahanan korosi jangka panjang, sementara seng menawarkan perlindungan galvanis jika permukaan tergores. Hasilnya, material ini bisa bertahan 3-6 kali lebih lama dibandingkan baja galvanis biasa. Tersedia dalam berbagai tingkat kekuatan, dengan yield strength mulai dari G250 (250 MPa) hingga G500 (500 MPa) dan ketebalan bervariasi dari 0.35 mm hingga 1.20 mm. Digunakan secara luas untuk atap, panel dinding, talang air, rangka rumah, dan berbagai peralatan rumah tangga.', 'bi-box-seam', NULL, 1, 0, '2026-05-01 10:18:46', '2026-05-06 22:29:43'),
+(1, 'Zincalum Metal', 'zincalum-metal-1777655926', 'Zincalum (atau Zincalume®) adalah baja yang dilapisi dengan campuran 55% aluminium, 43.4% seng, dan 1.6% silikon. Perpaduan ini memberikan ketahanan korosi yang luar biasa; aluminium memberikan ketahanan korosi jangka panjang, sementara seng menawarkan perlindungan galvanis jika permukaan tergores. Hasilnya, material ini bisa bertahan 3-6 kali lebih lama dibandingkan baja galvanis biasa. Tersedia dalam berbagai tingkat kekuatan, dengan yield strength mulai dari G250 (250 MPa) hingga G500 (500 MPa) dan ketebalan bervariasi dari 0.35 mm hingga 1.20 mm. Digunakan secara luas untuk atap, panel dinding, talang air, rangka rumah, dan berbagai peralatan rumah tangga.', 'bi-box-seam', NULL, 1, 0, '2026-05-01 10:18:46', '2026-05-12 21:45:47'),
 (2, 'Sandwich Panel – PUR/PIR', 'sandwich-panel-purpir-1777656046', 'Panel sandwich adalah panel komposit yang terdiri dari dua lapisan material facing (biasanya baja atau aluminium) yang mengapit inti (core) insulasi busa kaku. Berdasarkan material intinya, ada dua jenis utama:\r\n\r\n1. PUR (Polyurethane) - Terbuat dari reaksi poliol dan isosianat, PUR memiliki sifat insulasi termal yang sangat baik, ringan, dan fleksibel.\r\n\r\n2. PIR (Polyisocyanurate) - Merupakan pengembangan dari PUR dengan struktur kimia yang lebih kompleks. Perbedaan utamanya adalah ketahanan api yang jauh lebih unggul, stabilitas termal yang lebih tinggi, dan emisi asap yang lebih rendah saat terbakar.\r\n\r\nMaterial inti ini memiliki densitas antara 38-55 kg/m³, konduktivitas termal rendah 0.019-0.024 W/m.K, dan ketebalan panel yang beragam (50-200 mm). Cocok untuk dinding dan atap bangunan industri, ruang pendingin (cold storage), dan clean room.', 'bi-box-seam', NULL, 1, 0, '2026-05-01 10:20:46', '2026-05-01 10:26:09'),
 (3, 'uPVC (PVC Kaku)', 'upvc-pvc-kaku-1777656218', 'uPVC adalah singkatan dari Unplasticized Polyvinyl Chloride. Tidak seperti PVC biasa yang fleksibel karena ditambahkan plasticizer, uPVC tidak mengandung zat pelunak sehingga bersifat kaku, kuat, dan cocok untuk aplikasi struktural. Sifat utamanya meliputi tahan terhadap cuaca, korosi, dan kelembaban, serta perawatannya sangat mudah dan tidak perlu pengecatan ulang. Material ini juga merupakan insulator termal dan akustik yang baik, serta tidak mendukung pembakaran. Karena karakteristiknya yang kuat, tahan lama, dan hemat biaya jangka panjang, uPVC menjadi pilihan utama untuk bingkai jendela, pintu, dan pipa air.', 'bi-box-seam', NULL, 1, 0, '2026-05-01 10:23:38', '2026-05-01 10:23:38'),
-(4, 'FRP (Fiberglass-Reinforced Plastic)', 'frp-fiberglass-reinforced-plastic-1777656257', 'FRP atau Fiberglass-Reinforced Plastic (sering juga disebut Fiberglass) adalah material komposit yang terbuat dari serat kaca (fiberglass) yang tertanam dalam matriks polimer, biasanya resin poliester atau vinil ester. Material ini menawarkan kombinasi unik: sangat kuat (bahkan lebih kuat dari baja untuk berat yang sama), ringan (75-80% lebih ringan dari baja), dan sangat tahan terhadap korosi dari berbagai bahan kimia dan lingkungan keras. FRP juga non-konduktif, non-magnetik, dan transparan terhadap gelombang elektromagnetik. Densitasnya berkisar antara 1.25–2.5 g/cm³, dengan kekuatan tarik 480–1600 MPa. Aplikasi FRP sangat luas, mulai dari badan kapal, tangki kimia, pipa tahan karat, hingga panel dinding dan komponen otomotif.', 'bi-box-seam', NULL, 1, 0, '2026-05-01 10:24:17', '2026-05-01 10:24:17'),
+(4, 'FRP (Fiberglass-Reinforced Plastic)', 'frp-fiberglass-reinforced-plastic-1777656257', 'FRP atau Fiberglass-Reinforced Plastic (sering juga disebut Fiberglass) adalah material komposit yang terbuat dari serat kaca (fiberglass) yang tertanam dalam matriks polimer, biasanya resin poliester atau vinil ester. Material ini menawarkan kombinasi unik: sangat kuat (bahkan lebih kuat dari baja untuk berat yang sama), ringan (75-80% lebih ringan dari baja), dan sangat tahan terhadap korosi dari berbagai bahan kimia dan lingkungan keras. FRP juga non-konduktif, non-magnetik, dan transparan terhadap gelombang elektromagnetik. Densitasnya berkisar antara 1.25–2.5 g/cm³, dengan kekuatan tarik 480–1600 MPa. Aplikasi FRP sangat luas, mulai dari badan kapal, tangki kimia, pipa tahan karat, hingga panel dinding dan komponen otomotif. Kwwkkwkwwkkw', 'bi-box-seam', NULL, 1, 0, '2026-05-01 10:24:17', '2026-05-12 21:43:13'),
 (5, 'Stainless Steel (Baja Tahan Karat)', 'stainless-steel-baja-tahan-karat-1777656352', 'Baja tahan karat atau Stainless Steel pada dasarnya adalah paduan baja (besi dan karbon) yang mengandung minimal 10,5% kromium. Kromium inilah yang bereaksi dengan oksigen membentuk lapisan oksida krom yang sangat tipis, pasif, dan melindungi logam di bawahnya dari karat dan korosi. Terdapat ratusan tingkatan (grade), tetapi yang paling umum adalah:\r\n\r\n1. Austenitic (Seri 300) - Tipe 304 dan 316 adalah yang paling populer. Tipe 304 digunakan untuk peralatan dapur, sedangkan Tipe 316 mengandung molibdenum untuk ketahanan lebih terhadap asam dan air garam, cocok untuk aplikasi kelautan.\r\n\r\n2. Ferritic (Seri 400) - Tipe 430 bersifat magnetik dan lebih ekonomis, sering digunakan untuk trim otomotif dan panel dekoratif.\r\n\r\nSelain tahan karat, baja ini juga kuat, mudah dibersihkan, dan dapat didaur ulang.', 'bi-box-seam', NULL, 1, 0, '2026-05-01 10:25:52', '2026-05-01 10:25:52'),
 (6, 'Glasswool & Rockwool (Glass Wool & Rock Wool)', 'glasswool-rockwool-glass-wool-rock-wool-1777656504', 'Keduanya adalah jenis insulasi mineral wool yang berbentuk serat mirip kapas, tetapi berbeda dalam bahan baku dan beberapa sifatnya.\r\n\r\n1.Glasswool - Dibuat dari kaca daur ulang dan pasir silika yang dilelehkan pada suhu 1400°C, lalu dipintal menjadi serat. Material ini lebih ringan, fleksibel, dan memiliki embodied carbon yang lebih rendah, sehingga sangat baik untuk aplikasi akustik di partisi dan lantai.\r\n\r\n2.Rockwool - Dibuat dari batuan vulkanik (basalt) yang dilelehkan pada suhu 1500°C. Karena titik lelehnya yang lebih tinggi dari glasswool, rockwool memiliki ketahanan api yang lebih baik dan sering dipilih untuk aplikasi yang memerlukan ketahanan api ekstensif.\r\n\r\nKeduanya bersifat tidak mudah terbakar (Kelas A1), memberikan insulasi termal dan akustik yang sangat baik.', 'bi-box-seam', NULL, 1, 0, '2026-05-01 10:28:24', '2026-05-01 10:28:24'),
 (7, 'Aluminium Bubble Insulation', 'aluminium-bubble-insulation-1777660335', 'Insulasi gelembung aluminium adalah material insulasi reflektif yang terdiri dari satu atau dua lapisan aluminium foil murni yang merekat pada lapisan tengah berupa gelembung udara (biasanya terbuat dari polietilen/LDPE). Prinsip kerjanya adalah dengan memantulkan hingga 97% radiasi panas yang mengenainya, sehingga sangat efektif mencegah panas masuk (dari atap) atau keluar ruangan. Udara yang terperangkap dalam sel-sel gelembung juga membantu mengurangi konduksi panas. Material ini tipis, ringan, fleksibel, mudah dipasang, dan berfungsi juga sebagai penghalang uap air yang baik. Sangat populer digunakan sebagai insulasi atap, dinding, dan lantai, terutama pada bangunan residensial, gudang, dan karavan.', 'bi-box-seam', NULL, 1, 0, '2026-05-01 11:32:15', '2026-05-01 11:32:15');
@@ -444,13 +451,13 @@ ALTER TABLE `projects`
 -- AUTO_INCREMENT for table `project_images`
 --
 ALTER TABLE `project_images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `supply_materials`
 --
 ALTER TABLE `supply_materials`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`

@@ -54,18 +54,8 @@
                         @if($project->location)
                             <p class="text-muted"><i class="bi bi-geo-alt-fill me-2"></i> Lokasi: {{ $project->location }}</p>
                         @endif
-                        @if($project->client)
-                            <p class="text-muted"><i class="bi bi-person-badge me-2"></i> Klien: {{ $project->client }}</p>
-                        @endif
-                        @if($project->year)
-                            <p class="text-muted"><i class="bi bi-calendar-event me-2"></i> Tahun: {{ $project->year }}</p>
-                        @endif
-                        @if($project->duration)
-                            <p class="text-muted"><i class="bi bi-hourglass-split me-2"></i> Durasi: {{ $project->duration }}
-                            </p>
-                        @endif
 
-                        {{-- DESKRIPSI PROYEK -- selalu tampilkan area, dengan fallback jika kosong --}}
+                        {{-- DESKRIPSI PROYEK --}}
                         <div class="mt-3 description-wrapper">
                             <h5>Deskripsi Proyek</h5>
                             <p class="text-secondary project-description">
