@@ -46,7 +46,6 @@
                 <div class="sidebar-group">
                     <span class="sidebar-group-label">Konten Website</span>
                     <ul>
-                        {{-- SUPPLY MATERIAL --}}
                         <li>
                             <a href="{{ route('admin.supply-materials.index') }}"
                                 class="{{ request()->routeIs('admin.supply-materials*') ? 'active' : '' }}">
@@ -54,8 +53,6 @@
                                 <span>Supply Material</span>
                             </a>
                         </li>
-
-                        {{-- JASA KONSTRUKSI --}}
                         <li>
                             <a href="{{ route('admin.jasa-konstruksi.index') }}"
                                 class="{{ request()->routeIs('admin.jasa-konstruksi*') ? 'active' : '' }}">
@@ -63,17 +60,13 @@
                                 <span>Jasa Konstruksi</span>
                             </a>
                         </li>
-
-                        {{-- PROJECTS --}}
                         <li>
                             <a href="{{ route('admin.projects.index') }}"
                                 class="{{ request()->routeIs('admin.projects*') ? 'active' : '' }}">
                                 <i class="bi bi-building-check"></i>
-                                <span>Projects</span>
+                                <span>Proyek</span>
                             </a>
                         </li>
-
-                        {{-- CERTIFICATES --}}
                         <li>
                             <a href="{{ route('admin.certificates.index') }}"
                                 class="{{ request()->routeIs('admin.certificates*') ? 'active' : '' }}">
@@ -84,7 +77,6 @@
                     </ul>
                 </div>
 
-                {{-- Group Pengaturan (Info Kontak) --}}
                 <div class="sidebar-group">
                     <span class="sidebar-group-label">Pengaturan</span>
                     <ul>
@@ -120,7 +112,9 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><span class="dropdown-item-text small text-muted">{{ $user?->email ?? '' }}</span></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li>
                                 <form action="{{ route('admin.logout') }}" method="POST">
                                     @csrf
@@ -136,10 +130,14 @@
 
             <main class="admin-content">
                 @if(session('success'))
-                    <div class="alert alert-success alert-dismissible"><i class="bi bi-check-circle-fill"></i><span>{{ session('success') }}</span><button class="btn-close" onclick="this.parentElement.remove()">×</button></div>
+                    <div class="alert alert-success alert-dismissible"><i
+                            class="bi bi-check-circle-fill"></i><span>{{ session('success') }}</span><button
+                            class="btn-close" onclick="this.parentElement.remove()">×</button></div>
                 @endif
                 @if(session('error'))
-                    <div class="alert alert-danger alert-dismissible"><i class="bi bi-x-circle-fill"></i><span>{{ session('error') }}</span><button class="btn-close" onclick="this.parentElement.remove()">×</button></div>
+                    <div class="alert alert-danger alert-dismissible"><i
+                            class="bi bi-x-circle-fill"></i><span>{{ session('error') }}</span><button class="btn-close"
+                            onclick="this.parentElement.remove()">×</button></div>
                 @endif
                 @if($errors->any())
                     <div class="alert alert-danger alert-dismissible">
@@ -157,12 +155,14 @@
             <footer class="admin-footer">
                 <div class="admin-footer-container">
                     <div class="admin-footer-left">
-                        <p class="mb-0">&copy; {{ date('Y') }} <strong>PISON TEKNIK INDONESIA</strong>. All Rights Reserved.</p>
+                        <p class="mb-0">&copy; {{ date('Y') }} <strong>PISON TEKNIK INDONESIA</strong>. All Rights
+                            Reserved.</p>
                     </div>
                     <div class="admin-footer-right">
                         <span class="admin-footer-version"><i class="bi bi-code-slash"></i> Admin Panel v1.0</span>
                         <span class="admin-footer-divider">|</span>
-                        <a href="{{ url('/') }}" target="_blank" class="admin-footer-link"><i class="bi bi-globe"></i> Lihat Website</a>
+                        <a href="{{ url('/') }}" target="_blank" class="admin-footer-link"><i class="bi bi-globe"></i>
+                            Lihat Website</a>
                     </div>
                 </div>
             </footer>
