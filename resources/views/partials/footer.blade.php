@@ -4,7 +4,6 @@
             {{-- KOLOM 1: Brand & Deskripsi & Sosmed --}}
             <div class="col-lg-4 col-md-6">
                 <a href="{{ url('/') }}" class="footer-brand">
-                    <span class="footer-brand-icon"><i class="bi bi-building-gear"></i></span>
                     <div>
                         <h5 class="footer-brand-name">{{ $contactInfo->company_name ?? 'PISON TEKNIK' }}</h5>
                         <small class="footer-brand-tag">Kontraktor Profesional</small>
@@ -12,7 +11,7 @@
                 </a>
 
                 <p class="footer-desc">
-                    {{ $contactInfo->company_description ?? 'CV. Pison Teknik Indonesia adalah perusahaan kontraktor profesional.' }}
+                    {{ $contactInfo->company_description ?? 'CV. Pison Teknik Indonesia adalah perusahaan kontraktor yang menyediakan jasa konstruksi dan renovasi bangunan dengan fokus pada pekerjaan struktur dan atap, serta didukung penyediaan material berkualitas untuk memenuhi kebutuhan proyek secara menyeluruh.' }}
                 </p>
 
                 {{-- SOSIAL MEDIA (TikTok) --}}

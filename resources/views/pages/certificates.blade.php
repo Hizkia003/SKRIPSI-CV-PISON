@@ -1,4 +1,3 @@
-{{-- resources/views/frontend/certificates.blade.php --}}
 @extends('layouts.app')
 @section('title', 'Sertifikat')
 
@@ -48,9 +47,26 @@
                         <div class="col-lg-6 col-md-6 certificate-item" data-category="{{ $cert->category }}" data-aos="fade-up"
                             data-aos-delay="{{ $i * 100 }}">
                             <div class="doc-card">
-                                <div class="doc-icon">
-                                    <i class="bi bi-file-pdf"></i>
+                                {{-- PREVIEW DOKUMEN --}}
+                                <div class="doc-preview">
+                                    @php
+                                        $filePath = $cert->file ? public_path('storage/' . $cert->file) : null;
+                                        $fileExtension = $cert->file ? pathinfo($cert->file, PATHINFO_EXTENSION) : null;
+                                    @endphp
+                                    @if($cert->file && file_exists($filePath))
+                                        @if(in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                                            <img src="{{ asset('storage/' . $cert->file) }}" alt="{{ $cert->name }}"
+                                                class="doc-image img-fluid">
+                                        @elseif($fileExtension === 'pdf')
+                                            <embed src="{{ asset('storage/' . $cert->file) }}" type="application/pdf" class="doc-pdf-embed">
+                                        @else
+                                            <div class="doc-icon-big"><i class="bi bi-file-earmark"></i></div>
+                                        @endif
+                                    @else
+                                        <div class="doc-icon-big"><i class="bi bi-file-earmark-pdf"></i></div>
+                                    @endif
                                 </div>
+
                                 <div class="doc-body">
                                     <h5 class="doc-name">{{ $cert->name }}</h5>
                                     @if($cert->number)
@@ -101,6 +117,94 @@
             </div>
         </div>
     </section>
+
+    <style>
+        .doc-card {
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .doc-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            border-color: #FFC107;
+        }
+
+        .doc-preview {
+            width: 100%;
+            height: 200px;
+            background: #f8fafc;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .doc-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .doc-pdf-embed {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .doc-icon-big {
+            font-size: 4rem;
+            color: #94a3b8;
+        }
+
+        .doc-body {
+            flex: 1;
+        }
+
+        .doc-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 6px;
+        }
+
+        .doc-number {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .badge-doc {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #FFF8E1;
+            color: #92400E;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .btn-outline-warning {
+            color: #FFA000;
+            border-color: #FFC107;
+        }
+
+        .btn-outline-warning:hover {
+            background: #FFC107;
+            color: #1a1a1a;
+        }
+    </style>
 @endsection
 
 {{-- Script Filter --}}
@@ -112,7 +216,6 @@
 
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', function () {
-                    // Update active button
                     filterBtns.forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
 
@@ -136,7 +239,6 @@
                 });
             });
 
-            // Tampilkan hanya kategori pertama saat load
             const defaultFilter = document.querySelector('.btn-filter.active');
             if (defaultFilter) {
                 const filter = defaultFilter.dataset.filter;
