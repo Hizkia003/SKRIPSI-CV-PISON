@@ -14,7 +14,6 @@ class PageController extends Controller
     public function home()
     {
         $projects = Project::latest()->take(6)->get();
-
         return view('pages.home', compact('projects'));
     }
 
@@ -31,7 +30,7 @@ class PageController extends Controller
 
     public function jasaKonstruksi()
     {
-        $jasa = JasaKonstruksi::with('images')->where('is_active', true)->orderBy('order')->get();
+        $jasa = JasaKonstruksi::with('images')->where('is_active', 1)->orderBy('order')->get();
         return view('pages.jasa-konstruksi', compact('jasa'));
     }
 

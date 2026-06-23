@@ -5,25 +5,21 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('advantages', function (Blueprint $table) {
+        Schema::create('project_images', function (Blueprint $table) {
             $table->id();
-            $table->text('content');
+            $table->foreignId('project_id')
+                ->constrained('projects')
+                ->onDelete('cascade');
+            $table->string('image');
             $table->integer('order')->default(0);
-            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('advantages');
+        Schema::dropIfExists('project_images');
     }
 };

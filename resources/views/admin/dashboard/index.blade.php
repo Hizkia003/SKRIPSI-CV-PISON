@@ -24,30 +24,32 @@
                 </div>
             </div>
         </div>
-        {{-- HAPUS widget Contacts / Pesan Masuk --}}
-        {{-- <div class="col-xl-3 col-md-6"> ... </div> --}}
 
+        {{-- Statistik Sertifikat --}}
         <div class="col-xl-3 col-md-6">
             <div class="stat-box">
                 <div class="stat-box-icon icon-success"><i class="bi bi-patch-check-fill"></i></div>
                 <div class="stat-box-body">
                     <h3>{{ $stats['certificates'] ?? 0 }}</h3>
                     <p>Sertifikat</p>
-                    <small class="stat-note">Legalitas: {{ $stats['legalitas_count'] ?? 0 }}, Pekerja: {{ $stats['worker_cert_count'] ?? 0 }}</small>
+                    <small class="stat-note">Legalitas: {{ $stats['legalitas_count'] ?? 0 }}, Pekerja:
+                        {{ $stats['worker_cert_count'] ?? 0 }}</small>
                 </div>
             </div>
         </div>
+
+        {{-- Jika ingin tambahkan statistik lain, bisa di sini --}}
     </div>
 
     <div class="row g-3">
-        {{-- HAPUS widget Pesan Terbaru (Contact) --}}
-        {{-- <div class="col-lg-6"> ... </div> --}}
+        {{-- HAPUS bagian Pesan Terbaru (Contact) --}}
 
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
                     <h5><i class="bi bi-buildings-fill"></i>Proyek Terbaru</h5>
-                    <a href="{{ route('admin.projects.index') }}" class="btn btn-sm btn-outline-dark">Lihat Semua <i class="bi bi-arrow-right"></i></a>
+                    <a href="{{ route('admin.projects.index') }}" class="btn btn-sm btn-outline-dark">Lihat Semua <i
+                            class="bi bi-arrow-right"></i></a>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -62,9 +64,10 @@
                             <tbody>
                                 @forelse($latestProjects as $p)
                                     <tr>
-                                        <td><strong>{{ $p->title }}</strong><br><small class="text-muted"><i class="bi bi-geo-alt"></i> {{ $p->location }}</small></td>
+                                        <td><strong>{{ $p->title }}</strong><br><small class="text-muted"><i
+                                                    class="bi bi-geo-alt"></i> {{ $p->location }}</small></td>
                                         <td><span class="badge badge-warning">{{ ucfirst($p->category) }}</span></td>
-                                        <td>{{ $p->year }}</td>
+                                        <td>{{ $p->year ?? '-' }}</td>
                                     </tr>
                                 @empty
                                     <tr>

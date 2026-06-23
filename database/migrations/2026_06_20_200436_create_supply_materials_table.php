@@ -7,20 +7,21 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('supply_materials', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->text('description');
-            $table->string('icon')->default('bi-building');
+            $table->text('description')->nullable();
+            $table->string('icon')->default('bi-box-seam');
             $table->string('image')->nullable();
             $table->boolean('is_active')->default(true);
             $table->integer('order')->default(0);
             $table->timestamps();
         });
     }
+
     public function down(): void
     {
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('supply_materials');
     }
 };

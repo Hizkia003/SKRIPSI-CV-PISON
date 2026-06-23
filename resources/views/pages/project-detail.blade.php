@@ -22,7 +22,7 @@
                 <!-- Left: Galeri Utama + Thumbnail -->
                 <div class="col-lg-7" data-aos="fade-right">
                     <div class="main-image mb-4">
-                        <img src="{{ $project->thumbnail ? asset('storage/' . $project->thumbnail) : asset('images/placeholder.jpg') }}"
+                        <img src="{{ $project->thumbnail ? asset('storage/' . $project->thumbnail) : 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800' }}"
                             alt="{{ $project->title }}" class="img-fluid rounded-4 w-100">
                     </div>
 
@@ -80,7 +80,7 @@
                             <div class="col-md-4">
                                 <div class="project-card h-100">
                                     <div class="project-image">
-                                        <img src="{{ $rp->thumbnail ? asset('storage/' . $rp->thumbnail) : asset('images/placeholder.jpg') }}"
+                                        <img src="{{ $rp->thumbnail ? asset('storage/' . $rp->thumbnail) : 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600' }}"
                                             alt="{{ $rp->title }}">
                                     </div>
                                     <div class="project-info">

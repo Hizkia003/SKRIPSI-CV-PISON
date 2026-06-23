@@ -1693,6 +1693,142 @@ button {
     font-family: inherit;
 }
 
+/* ====== ADMIN UI ENHANCEMENTS ====== */
+
+/* Card lebih modern */
+.card {
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s;
+}
+.card-header {
+    background: #ffffff;
+    border-bottom: 1px solid #f0f2f5;
+    padding: 18px 24px;
+}
+.card-header h5 i {
+    color: #ffc107;
+}
+
+/* Tombol warning dengan gradien */
+.btn-warning {
+    background: linear-gradient(135deg, #ffc107, #ffa000);
+    border: none;
+}
+.btn-warning:hover {
+    background: linear-gradient(135deg, #ffb300, #ff8f00);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+}
+
+/* Tabel lebih rapi */
+.table thead th {
+    background: #f8fafc;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.table tbody tr:hover {
+    background: #fff8e1 !important;
+}
+
+/* Badge */
+.badge-approved {
+    background: #d1fae5 !important;
+    color: #065f46 !important;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+.badge-rejected {
+    background: #fee2e2 !important;
+    color: #991b1b !important;
+}
+
+/* Form control */
+.form-control,
+.form-select {
+    border-radius: 12px;
+    border: 1.5px solid #e2e8f0;
+}
+.form-control:focus,
+.form-select:focus {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1);
+}
+
+/* Sidebar navigation lebih halus */
+.sidebar-nav li a {
+    border-radius: 10px;
+    margin: 2px 12px;
+    padding: 10px 16px;
+}
+.sidebar-nav li a.active {
+    background: rgba(255, 193, 7, 0.15);
+    color: #ffc107;
+}
+
+/* Topbar */
+.admin-topbar {
+    background: #ffffff;
+    border-bottom: 1px solid #eef2f6;
+}
+.user-btn {
+    border-radius: 40px;
+    background: #f8fafc;
+}
+
+/* Dashboard stat box */
+.stat-box {
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+}
+.stat-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+.stat-box-icon {
+    transition: transform 0.2s;
+}
+.stat-box:hover .stat-box-icon {
+    transform: scale(1.05);
+}
+
+/* Responsif admin */
+@media (max-width: 767px) {
+    .admin-content {
+        padding: 15px !important;
+    }
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+    .stat-box {
+        padding: 15px;
+    }
+    .stat-box-body h3 {
+        font-size: 1.4rem;
+    }
+    .table thead th,
+    .table tbody td {
+        padding: 10px 12px;
+    }
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        padding: 10px 15px !important;
+    }
+    .dataTables_wrapper .dataTables_info,
+    .dataTables_wrapper .dataTables_paginate {
+        padding: 10px 15px !important;
+    }
+    .paginate_button {
+        padding: 4px 8px !important;
+        font-size: 0.75rem !important;
+    }
+}
+
 /* ============== RESPONSIVE ============== */
 @media (max-width: 991.98px) {
     .admin-sidebar {

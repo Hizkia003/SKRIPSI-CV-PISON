@@ -7,12 +7,13 @@ use App\Models\JasaKonstruksi;
 use App\Models\JasaKonstruksiImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class JasaKonstruksiController extends Controller
 {
     public function index()
     {
-        $jasa = JasaKonstruksi::with('images')->orderBy('order')->paginate(10);
+        $jasa = JasaKonstruksi::orderBy('order')->get();
         return view('admin.jasa-konstruksi.index', compact('jasa'));
     }
 
@@ -23,82 +24,101 @@ class JasaKonstruksiController extends Controller
 
     public function store(Request $request)
     {
-        // Pastikan is_active selalu dikirim sebagai boolean
-        $request->merge([
-            'is_active' => $request->has('is_active') ? true : false,
-        ]);
-
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'is_active' => 'boolean',  // sekarang selalu ada (true/false)
-            'order' => 'nullable|integer|min:0',
-            'images' => 'nullable|array',
-            'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:3072',
+            'order' => 'nullable|integer',
+            'is_active' => 'nullable|boolean',
+            'icon' => 'nullable|string|max:50',
+            'images.*' => 'nullable|image|max:2048',
         ]);
 
-        $data = $request->except('images');
-        $data['order'] = $validated['order'] ?? 0;
+        $data = [
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'order' => $validated['order'] ?? 0,
+            'is_active' => $request->has('is_active'),
+            'icon' => $validated['icon'] ?? 'bi-building',
+            'slug' => Str::slug($validated['title']) . '-' . time(),
+        ];
 
         $jasa = JasaKonstruksi::create($data);
 
-        // Simpan gambar
         if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $i => $file) {
+            foreach ($request->file('images') as $file) {
                 $path = $file->store('jasa-konstruksi', 'public');
-                $jasa->images()->create(['image' => $path, 'order' => $i]);
+                $jasa->images()->create(['image' => $path]);
             }
         }
 
-        return redirect()->route('admin.jasa-konstruksi.index')->with('success', 'Layanan berhasil ditambahkan');
+        return redirect()->route('admin.jasa-konstruksi.index')
+            ->with('success', 'Layanan berhasil ditambahkan');
     }
 
     public function edit(JasaKonstruksi $jasa_konstruksi)
     {
-        $jasa_konstruksi->load('images');
         return view('admin.jasa-konstruksi.edit', compact('jasa_konstruksi'));
     }
 
-    public function update(Request $request, $id) // atau (Request $request, JasaKonstruksi $jasaKonstruksi)
+    public function update(Request $request, JasaKonstruksi $jasa_konstruksi)
     {
-        $jasa = JasaKonstruksi::findOrFail($id);
-
-        $request->merge([
-            'is_active' => $request->has('is_active') ? true : false,
-        ]);
-
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'is_active' => 'boolean',
-            'order' => 'nullable|integer|min:0',
-            'images' => 'nullable|array',
-            'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:3072',
+            'order' => 'nullable|integer',
+            'icon' => 'nullable|string|max:50',
+            'images.*' => 'nullable|image|max:2048',
+            'delete_images' => 'nullable|array',
+            'delete_images.*' => 'exists:jasa_konstruksi_images,id',
         ]);
 
-        $data = $request->except('images');
-        $data['order'] = $validated['order'] ?? 0;
+        // Data yang akan diupdate (hanya kolom yang ada di tabel)
+        $data = [
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'order' => $validated['order'] ?? 0,
+            'is_active' => $request->has('is_active'),
+            'icon' => $validated['icon'] ?? 'bi-building',
+        ];
 
-        $jasa->update($data);
+        // Update slug jika title berubah
+        if ($jasa_konstruksi->title !== $data['title']) {
+            $data['slug'] = Str::slug($data['title']) . '-' . time();
+        }
 
-        if ($request->hasFile('images')) {
-            // Opsional: hapus gambar lama
-            foreach ($request->file('images') as $i => $file) {
-                $path = $file->store('jasa-konstruksi', 'public');
-                $jasa->images()->create(['image' => $path, 'order' => $i]);
+        $jasa_konstruksi->update($data);
+
+        // Hapus gambar yang dicentang
+        if ($request->has('delete_images')) {
+            $imagesToDelete = JasaKonstruksiImage::whereIn('id', $request->delete_images)->get();
+            foreach ($imagesToDelete as $img) {
+                Storage::disk('public')->delete($img->image);
+                $img->delete();
             }
         }
 
-        return redirect()->route('admin.jasa-konstruksi.index')->with('success', 'Layanan berhasil diperbarui');
+        // Upload gambar baru
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $file) {
+                $path = $file->store('jasa-konstruksi', 'public');
+                $jasa_konstruksi->images()->create(['image' => $path]);
+            }
+        }
+
+        return redirect()->route('admin.jasa-konstruksi.index')
+            ->with('success', 'Layanan berhasil diperbarui');
     }
 
     public function destroy(JasaKonstruksi $jasa_konstruksi)
     {
-        // Hapus semua gambar terkait
+        // Hapus semua gambar terkait dari storage
         foreach ($jasa_konstruksi->images as $img) {
             Storage::disk('public')->delete($img->image);
+            $img->delete();
         }
         $jasa_konstruksi->delete();
-        return back()->with('success', 'Layanan berhasil dihapus');
+
+        return redirect()->route('admin.jasa-konstruksi.index')
+            ->with('success', 'Layanan berhasil dihapus');
     }
 }

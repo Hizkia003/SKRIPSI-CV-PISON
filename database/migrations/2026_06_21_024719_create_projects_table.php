@@ -11,10 +11,10 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('category');
-            $table->string('location');
-            $table->string('year');
+            $table->string('location')->nullable();
+            $table->string('year')->nullable();
             $table->string('client')->nullable();
             $table->string('duration')->nullable();
             $table->string('status')->default('completed');
@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->timestamps();
         });
     }
+
     public function down(): void
     {
         Schema::dropIfExists('projects');

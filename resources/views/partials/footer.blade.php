@@ -6,8 +6,8 @@
                 <a href="{{ url('/') }}" class="footer-brand">
                     <span class="footer-brand-icon"><i class="bi bi-building-gear"></i></span>
                     <div>
-                        <h5 class="footer-brand-name">{{ $footer->brand_name ?? 'PISON TEKNIK' }}</h5>
-                        <small class="footer-brand-tag">{{ $footer->brand_tagline ?? 'Kontraktor Profesional' }}</small>
+                        <h5 class="footer-brand-name">{{ $contactInfo->company_name ?? 'PISON TEKNIK' }}</h5>
+                        <small class="footer-brand-tag">Kontraktor Profesional</small>
                     </div>
                 </a>
 
@@ -15,13 +15,13 @@
                     {{ $contactInfo->company_description ?? 'CV. Pison Teknik Indonesia adalah perusahaan kontraktor profesional.' }}
                 </p>
 
-                {{-- SOSIAL MEDIA (TikTok saja) --}}
+                {{-- SOSIAL MEDIA (TikTok) --}}
                 @if(!empty($contactInfo->tiktok))
-                <div class="footer-social">
-                    <a href="{{ $contactInfo->tiktok }}" target="_blank" rel="noopener" title="TikTok">
-                        <i class="bi bi-tiktok"></i>
-                    </a>
-                </div>
+                    <div class="footer-social">
+                        <a href="{{ $contactInfo->tiktok }}" target="_blank" rel="noopener" title="TikTok">
+                            <i class="bi bi-tiktok"></i>
+                        </a>
+                    </div>
                 @endif
             </div>
 
@@ -38,53 +38,48 @@
                 </ul>
             </div>
 
-            {{-- KOLOM 3: Layanan --}}
+            {{-- KOLOM 3: Layanan Kami --}}
             <div class="col-lg-3 col-md-6">
                 <h6 class="footer-title">Layanan Kami</h6>
                 <ul class="footer-links">
-                    <li><a href="{{ url('/supply-material') }}"><i class="bi bi-chevron-right"></i> Supply Material</a></li>
-                    <li><a href="{{ url('/jasa-konstruksi') }}"><i class="bi bi-chevron-right"></i> Jasa Konstruksi</a></li>
+                    <li><a href="{{ url('/supply-material') }}"><i class="bi bi-chevron-right"></i> Supply Material</a>
+                    </li>
+                    <li><a href="{{ url('/jasa-konstruksi') }}"><i class="bi bi-chevron-right"></i> Jasa Konstruksi</a>
+                    </li>
                 </ul>
             </div>
 
-            {{-- KOLOM 4: Kontak --}}
+            {{-- KOLOM 4: Kontak Kami --}}
             <div class="col-lg-3 col-md-6">
                 <h6 class="footer-title">Kontak Kami</h6>
                 <ul class="footer-contact">
-                    @if(!empty($contactInfo->address))
                     <li>
                         <i class="bi bi-geo-alt-fill"></i>
-                        <span>{{ $contactInfo->address }}</span>
+                        <span>{{ $contactInfo->address ?? 'Grand alexandria hills, Sidoarjo' }}</span>
                     </li>
-                    @endif
-
-                    @if(!empty($contactInfo->whatsapp))
                     <li>
                         <i class="bi bi-whatsapp"></i>
-                        <a href="https://wa.me/{{ $contactInfo->whatsapp_full }}" target="_blank">{{ $contactInfo->whatsapp_display }}</a>
+                        <a href="https://wa.me/{{ $contactInfo->whatsapp ?? '82141520224' }}" target="_blank">
+                            +62 {{ $contactInfo->whatsapp ?? '82141520224' }}
+                        </a>
                     </li>
-                    @endif
-
-                    @if(!empty($contactInfo->email))
                     <li>
                         <i class="bi bi-envelope-fill"></i>
-                        <a href="mailto:{{ $contactInfo->email }}">{{ $contactInfo->email }}</a>
+                        <a href="mailto:{{ $contactInfo->email ?? 'cv.pisonteknikindonesia@gmail.com' }}">
+                            {{ $contactInfo->email ?? 'cv.pisonteknikindonesia@gmail.com' }}
+                        </a>
                     </li>
-                    @endif
-
-                    @if(!empty($contactInfo->working_hours))
                     <li>
                         <i class="bi bi-clock-fill"></i>
-                        <span>{{ $contactInfo->working_hours }}</span>
+                        <span>{{ $contactInfo->working_hours ?? 'Senin - Sabtu: 08:00 - 17:00 WIB' }}</span>
                     </li>
-                    @endif
                 </ul>
             </div>
         </div>
 
         {{-- COPYRIGHT --}}
         <div class="footer-bottom">
-            <p>{{ $footer->copyright_text ?? '© '.date('Y').' '.($footer->company_name ?? 'PISON TEKNIK INDONESIA').'. All Rights Reserved.' }}
+            <p>{{ $contactInfo->copyright_text ?? '© ' . date('Y') . ' CV. PISON TEKNIK INDONESIA. All Rights Reserved.' }}
             </p>
         </div>
     </div>

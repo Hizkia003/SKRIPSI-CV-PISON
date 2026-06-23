@@ -7,21 +7,22 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('supply_materials', function (Blueprint $table) {
+        Schema::create('certificates', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug')->unique();
-            $table->text('description')->nullable();
-            $table->string('icon')->default('bi-box-seam');
+            $table->string('name');
+            $table->string('subtitle')->nullable();
             $table->string('image')->nullable();
-            $table->boolean('is_active')->default(true);
+            $table->string('number')->nullable();
+            $table->string('file')->nullable();
+            $table->string('category')->default('company_legalitas');
             $table->integer('order')->default(0);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('supply_materials');
+        Schema::dropIfExists('certificates');
     }
 };

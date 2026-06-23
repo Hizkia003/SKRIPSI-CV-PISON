@@ -4,71 +4,73 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
-    /**
-     * Tampilkan halaman Login
-     */
     public function showLogin()
     {
-        return view('admin.auth.login');
+        if (Auth::check()) {
+            return redirect()->route('admin.dashboard');
+        }
+        return view('admin.login');
     }
 
-    /**
-     * Redirect ke Google OAuth
-     */
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
     }
 
-    /**
-     * Handle callback dari Google
-     * Siapapun bisa login, otomatis dibuat akun admin
-     */
-    public function handleGoogleCallback(Request $request)
+    public function handleGoogleCallback()
     {
         try {
             $googleUser = Socialite::driver('google')->user();
 
-            // Cari user berdasarkan email, atau buat baru otomatis
-            $user = User::updateOrCreate(
-                ['email' => $googleUser->getEmail()],
-                [
+            // Cari user berdasarkan email
+            $user = User::where('email', $googleUser->getEmail())->first();
+
+            if (!$user) {
+                // Buat user baru
+                $user = User::create([
                     'name' => $googleUser->getName(),
+                    'email' => $googleUser->getEmail(),
                     'google_id' => $googleUser->getId(),
                     'avatar' => $googleUser->getAvatar(),
+                    'password' => Hash::make(Str::random(16)),
                     'is_admin' => true,
-                    'last_login_at' => now(),
-                ]
-            );
+                ]);
+            } else {
+                // Update google_id dan avatar jika belum ada
+                if (!$user->google_id) {
+                    $user->google_id = $googleUser->getId();
+                    $user->avatar = $googleUser->getAvatar();
+                    $user->save();
+                }
+            }
 
-            // Login user
+            // Set semua user yang login via Google sebagai admin
+            if (!$user->is_admin) {
+                $user->is_admin = true;
+                $user->save();
+            }
+
+            // Login sebagai admin
             Auth::login($user, true);
-            $request->session()->regenerate();
+            $user->update(['last_login_at' => now()]);
 
-            return redirect()->route('admin.dashboard')
-                ->with('success', 'Selamat datang, ' . $user->name . '! 🎉');
+            return redirect()->route('admin.dashboard');
+
         } catch (\Exception $e) {
-            return redirect()->route('admin.login')->withErrors([
-                'email' => 'Login Google gagal. Silakan coba lagi. (' . $e->getMessage() . ')'
-            ]);
+            return redirect()->route('admin.login')->with('error', 'Login Google gagal: ' . $e->getMessage());
         }
     }
 
-    /**
-     * Logout
-     */
-    public function logout(Request $request)
+    public function logout()
     {
         Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect()->route('admin.login')
-            ->with('success', 'Anda telah berhasil logout.');
+        return redirect()->route('admin.login');
     }
 }

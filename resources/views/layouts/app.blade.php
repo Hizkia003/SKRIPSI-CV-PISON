@@ -41,13 +41,13 @@
 
     @include('partials.footer')
 
-    <!-- WhatsApp Float Button (dinamis dari pengaturan contactInfo) -->
+    <!-- WhatsApp Float Button -->
     @if(!empty($contactInfo->whatsapp))
-    <a href="https://wa.me/{{ $contactInfo->whatsapp }}?text={{ urlencode('Halo CV. Pison Teknik Indonesia, saya tertarik dengan layanan Anda. Bisa minta informasi lebih lanjut?') }}"
-        target="_blank" rel="noopener" class="whatsapp-float" id="waFloat" aria-label="Chat WhatsApp">
-        <i class="bi bi-whatsapp"></i>
-        <span class="wa-tooltip">Chat Kami</span>
-    </a>
+        <a href="https://wa.me/{{ $contactInfo->whatsapp }}?text={{ urlencode('Halo CV. Pison Teknik Indonesia, saya tertarik dengan layanan Anda. Bisa minta informasi lebih lanjut?') }}"
+            target="_blank" rel="noopener" class="whatsapp-float" id="waFloat" aria-label="Chat WhatsApp">
+            <i class="bi bi-whatsapp"></i>
+            <span class="wa-tooltip">Chat Kami</span>
+        </a>
     @endif
 
     <!-- Scroll to Top -->
